@@ -1,6 +1,6 @@
-package aut.engine.selenium;
+package framework.engine.selenium;
 
-import aut.engine.utils.LoadProperties;
+import framework.engine.utils.LoadProperties;
 import io.qameta.allure.Description;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
@@ -16,13 +16,11 @@ public class SeleniumTestBase {
     static Properties properties;
 
     @BeforeAll
-    @Description("Carga de propiedades desde config.properties")
-    public static void setupTest() {
+    public static void LoadProperties() {
         properties = LoadProperties.loadProperties();
     }
 
     @BeforeEach
-    @Description("Configuracion de WebDriver")
     void webDriverSetup(){
         String browserName = properties.getProperty("browser");
         driverFactory = new DriverFactory();
@@ -30,7 +28,6 @@ public class SeleniumTestBase {
     }
 
     @AfterEach
-    @Description ("Cierre de WebDriver")
     void close(){
         driver.quit();
     }

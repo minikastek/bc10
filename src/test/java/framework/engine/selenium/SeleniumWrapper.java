@@ -1,4 +1,4 @@
-package aut.engine.selenium;
+package framework.engine.selenium;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;

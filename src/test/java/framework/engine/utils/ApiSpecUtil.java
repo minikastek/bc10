@@ -1,4 +1,4 @@
-package aut.engine.utils;
+package framework.engine.utils;
 
 import io.restassured.builder.ResponseSpecBuilder;
 import io.restassured.http.ContentType;
