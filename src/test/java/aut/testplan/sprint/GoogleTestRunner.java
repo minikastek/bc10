@@ -1,4 +1,4 @@
-package framework.engine.bdd;
+package aut.testplan.sprint;
 
 import framework.engine.selenium.DriverFactory;
 import io.cucumber.java8.Scenario;
@@ -19,11 +19,11 @@ import java.time.Duration;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(plugin = {"pretty", "io.qameta.allure.cucumber5jvm.AllureCucumber5Jvm"},
-        glue = {"framework.testing.steps","framework.engine.bdd"},
-        tags = {""},
-        features = {"src/test/java/framework/testing/features"})
+        glue = {"aut.testcreation.steps","aut.testplan.sprint"},
+        tags = {"@aut"},
+        features = {"src/test/java/aut/testcreation/features"})
 @CommonsLog
-public class CucumberBaseTestRunner {
+public class GoogleTestRunner {
 
     public static WebDriver driver;
     private static DriverFactory driverFactory;
@@ -32,7 +32,7 @@ public class CucumberBaseTestRunner {
         driverFactory = new DriverFactory();
         driver = driverFactory.createWebDriver();
         if (driver != null) {
-            driver.manage().timeouts().implicitlyWait(Duration.ofMillis(3000));
+            driver.manage().timeouts().implicitlyWait(Duration.ofMillis(5000));
             driver.manage().window().maximize();
         }
     }

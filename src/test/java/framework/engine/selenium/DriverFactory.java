@@ -26,14 +26,14 @@ public class DriverFactory {
                 hiloLocal.set(new FirefoxDriver());
                 getDriver().manage().deleteAllCookies();
                 getDriver().manage().window().maximize();
-                getDriver().manage().timeouts().implicitlyWait(Duration.ofMillis(1000));
+                getDriver().manage().timeouts().implicitlyWait(Duration.ofMillis(5000));
                 return getDriver();
             case "edge":
                 WebDriverManager.edgedriver().setup();
                 hiloLocal.set(new EdgeDriver());
                 getDriver().manage().deleteAllCookies();
                 getDriver().manage().window().maximize();
-                getDriver().manage().timeouts().implicitlyWait(Duration.ofMillis(1000));
+                getDriver().manage().timeouts().implicitlyWait(Duration.ofMillis(5000));
                 return getDriver();
             default:
                 throw new RuntimeException("Navegador no configurado: " + browser);

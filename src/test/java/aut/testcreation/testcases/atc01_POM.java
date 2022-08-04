@@ -13,6 +13,7 @@ public class atc01_POM extends SeleniumTestBase {
     @Test
     void busquedaGoogle(){
         googleHomePage = new GoogleHomePage(DriverFactory.getDriver());
+        googleHomePage.navegarAlHome();
         googleHomePage.buscarConBotonBuscar("Tsoft");
         Assertions.assertEquals("Tsoft - Buscar con Google",googleHomePage.getUrlTitle());
     }

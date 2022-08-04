@@ -36,20 +36,20 @@ configurations {
 
 dependencies {
     //JUnit
-    implementation "org.junit.jupiter:junit-jupiter-api:${jupiterVersion}"
-    implementation "org.junit.jupiter:junit-jupiter-engine:${jupiterVersion}"
-    implementation "org.junit.jupiter:junit-jupiter-params:${jupiterVersion}"
+    testImplementation "org.junit.jupiter:junit-jupiter-api:${jupiterVersion}"
+    testImplementation "org.junit.jupiter:junit-jupiter-engine:${jupiterVersion}"
+    testImplementation "org.junit.jupiter:junit-jupiter-params:${jupiterVersion}"
     testImplementation "org.junit.platform:junit-platform-launcher:1.8.2"
     testImplementation "org.junit.jupiter:junit-jupiter:${jupiterVersion}"
     testImplementation 'org.junit.platform:junit-platform-suite-api:1.8.2'
-    implementation "org.junit.vintage:junit-vintage-engine:${jupiterVersion}"
+    testImplementation "org.junit.vintage:junit-vintage-engine:${jupiterVersion}"
 
     //RestAssured
-    implementation "io.rest-assured:rest-assured:${restAssuredVersion}"
-    implementation "io.rest-assured:json-path:${restAssuredVersion}"
+    testImplementation "io.rest-assured:rest-assured:${restAssuredVersion}"
+    testImplementation "io.rest-assured:json-path:${restAssuredVersion}"
 
     //
-    implementation "com.typesafe:config:${typeSafeVersion}"
+    testImplementation "com.typesafe:config:${typeSafeVersion}"
 
     //Lombok
     compileOnly "org.projectlombok:lombok:${lombokVersion}"
@@ -67,42 +67,28 @@ dependencies {
     implementation "io.qameta.allure:allure-rest-assured:${allureVersion}"
 
     //Selenium
-    implementation "org.seleniumhq.selenium:selenium-java:${seleniumVersion}"
+    testImplementation "org.seleniumhq.selenium:selenium-java:${seleniumVersion}"
 
 
     //Cucumber
-    implementation "io.cucumber:cucumber-junit:${cucumberVersion}"
-    implementation "io.cucumber:cucumber-java8:${cucumberVersion}"
-    implementation "io.cucumber:cucumber-junit-platform-engine:${cucumberVersion}"
-    implementation "org.junit.jupiter:junit-jupiter-api:${jupiterVersion}"
-    implementation "info.cukes:cucumber-java:${infoCukes}"
-    implementation "info.cukes:cucumber-junit:${infoCukes}"
-    implementation "info.cukes:cucumber-core:${infoCukes}"
-    implementation "io.cucumber:cucumber-junit-platform-engine:${cucumberVersion}"
-    implementation "info.cukes:gherkin:2.12.2"
-    implementation 'io.qameta.allure:allure-cucumber5-jvm:2.13.3'
+    testImplementation "io.cucumber:cucumber-junit:${cucumberVersion}"
+    testImplementation "io.cucumber:cucumber-java8:${cucumberVersion}"
+    testImplementation "io.cucumber:cucumber-junit-platform-engine:${cucumberVersion}"
+    testImplementation "info.cukes:cucumber-java:${infoCukes}"
+    testImplementation "info.cukes:cucumber-junit:${infoCukes}"
+    testImplementation "info.cukes:cucumber-core:${infoCukes}"
+    testImplementation "io.cucumber:cucumber-junit-platform-engine:${cucumberVersion}"
+    testImplementation "info.cukes:gherkin:2.12.2"
+    testImplementation 'io.qameta.allure:allure-cucumber5-jvm:2.13.3'
 
     //
     implementation 'com.github.javafaker:javafaker:1.0.2'
 
     //WebDriver
-    implementation 'io.github.bonigarcia:webdrivermanager:5.0.3'
+    testImplementation 'io.github.bonigarcia:webdrivermanager:5.0.3'
 
     implementation "org.aspectj:aspectjweaver:1.9.7"
     implementation "org.aspectj:aspectjrt:1.9.7"
-}
-
-task cucumber() {
-    dependsOn assemble, compileTestJava
-    doLast {
-        javaexec {
-            systemProperty 'allure.results.directory', "$buildDir/allure-results"
-            main = "io.cucumber.core.cli.Main"
-            classpath = configurations.cucumberRuntime + sourceSets.main.output + sourceSets.test.output
-            args = ['--plugin', 'pretty', '--plugin', 'io.qameta.allure.cucumber5jvm.AllureCucumber5Jvm', '--strict',
-                    '--glue', 'glue', 'src/test/resources/features ']
-        }
-    }
 }
 
 task tagsTest(type: Test) {
