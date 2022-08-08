@@ -2,6 +2,7 @@ package aut.testcreation.steps;
 import aut.testcreation.pages.GoogleHomePage;
 import aut.testplan.sprint.GoogleTestRunner;
 import io.cucumber.java8.En;
+import org.junit.jupiter.api.Assertions;
 
 
 public class GoogleSteps extends GoogleTestRunner implements En{
@@ -10,27 +11,24 @@ public class GoogleSteps extends GoogleTestRunner implements En{
 
         GoogleHomePage googleHomePage;
 
-        Before(1, GoogleTestRunner::setUp);
+        Before(2, GoogleTestRunner::setUp);
         After(GoogleTestRunner::tearDown);
 
-        Given("que estoy en el Home de Google", () -> {
-            // Write code here that turns the phrase above into concrete actions
-            System.out.println("Test");
-        });
+        Given("que estoy en el Home de Google", () -> Assertions.assertTrue(true));
 
         When("busco la palabra {string} en el navegador", (String string) -> {
             // Write code here that turns the phrase above into concrete actions
-            System.out.println("Test");
+            Assertions.assertTrue(true);
         });
 
         When("presiono el boton buscar", () -> {
             // Write code here that turns the phrase above into concrete actions
-            System.out.println("Test");
+            Assertions.assertTrue(true);
         });
 
         Then("me lleva a la pagina de resultados", () -> {
             // Write code here that turns the phrase above into concrete actions
-            System.out.println("Test");
+            Assertions.assertTrue(true);
         });
     }
 }

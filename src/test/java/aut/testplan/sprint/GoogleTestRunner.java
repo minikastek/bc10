@@ -32,7 +32,7 @@ public class GoogleTestRunner {
         driverFactory = new DriverFactory();
         driver = driverFactory.createWebDriver();
         if (driver != null) {
-            driver.manage().timeouts().implicitlyWait(Duration.ofMillis(5000));
+            driver.manage().timeouts().implicitlyWait(Duration.ofMillis(3000));
             driver.manage().window().maximize();
         }
     }
