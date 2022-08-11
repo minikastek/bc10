@@ -3,7 +3,7 @@ plugins {
     id "io.qameta.allure" version "2.9.6"
 }
 
-group 'org.example'
+group 'com.tsoftglobal'
 version '1.0-SNAPSHOT'
 
 allure {
@@ -77,7 +77,6 @@ dependencies {
     testImplementation "info.cukes:cucumber-java:${infoCukes}"
     testImplementation "info.cukes:cucumber-junit:${infoCukes}"
     testImplementation "info.cukes:cucumber-core:${infoCukes}"
-    testImplementation "io.cucumber:cucumber-junit-platform-engine:${cucumberVersion}"
     testImplementation "info.cukes:gherkin:2.12.2"
     testImplementation 'io.qameta.allure:allure-cucumber5-jvm:2.13.3'
 
