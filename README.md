@@ -6,3 +6,4 @@ Tutor2: Gina Ozimiza
 Integrantes bootcamp:
 Clara Alarcon
 Nahuel Diaz
+Nelson Tapia
