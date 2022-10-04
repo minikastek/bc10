@@ -5,3 +5,4 @@ Tutor1: Eduardo Araya
 Tutor2: Gina Ozimiza
 Integrantes bootcamp:
 Clara Alarcon
+Florencia Lorenzati
