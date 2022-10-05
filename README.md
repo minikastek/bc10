@@ -7,3 +7,4 @@ Integrantes bootcamp:
 Clara Alarcon
 Nahuel Diaz
 Daniel Rebolledo
+Florencia Lorenzati
