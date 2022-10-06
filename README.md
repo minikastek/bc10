@@ -11,4 +11,4 @@ Repositorio para el desarrollo del bootcamp 10 de TSOFT.
 - Florencia Lorenzati
 - Lucas Cabral
 - Nelson Tapia
-
+- Blas Uria
