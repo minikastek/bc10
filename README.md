@@ -12,3 +12,4 @@ Repositorio para el desarrollo del bootcamp 10 de TSOFT.
 - Lucas Cabral
 - Nelson Tapia
 - Blas Uria
+- Nicolas Olivera
