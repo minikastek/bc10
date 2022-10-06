@@ -8,3 +8,4 @@ Repositorio para el desarrollo del bootcamp 10 de TSOFT.
 - Nahuel Diaz
 - Daniel Rebolledo
 - Florencia Lorenzati
+- Lucas Cabral
