@@ -1,6 +1,4 @@
-
-Repositorio para el desarrollo del bootcamp 10 de TSOFT.
-
+## Repositorio para el desarrollo del bootcamp 10 de TSOFT.
 
 - Tutor1: Eduardo Araya
 - Tutor2: Gina Ozimiza
@@ -15,3 +13,4 @@ Repositorio para el desarrollo del bootcamp 10 de TSOFT.
 - Blas Uria
 - Lozada Rocio
 - Jordan Jimenez
+- Pehuen Dias
