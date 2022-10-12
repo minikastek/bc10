@@ -1,4 +1,4 @@
-package bc10.earaya;
+package bc10.earaya.browser;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.Test;
@@ -10,12 +10,12 @@ import org.openqa.selenium.ie.InternetExplorerDriver;
 
 public class InstallDriversTest {
 
-    /*@Test
+    @Test
     void chromeSession(){
         WebDriverManager.chromedriver().setup();
         WebDriver driver = new ChromeDriver();
         driver.quit();
-    }*/
+    }
 
     @Test
     void edgeSession(){
