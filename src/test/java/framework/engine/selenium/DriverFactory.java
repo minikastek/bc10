@@ -9,7 +9,6 @@ import java.time.Duration;
 
 public class DriverFactory {
 
-    public WebDriver driver;
     public static ThreadLocal<WebDriver> hiloLocal = new ThreadLocal<>();
 
     /**

@@ -1,4 +1,4 @@
-package aut.testcreation.testcases;
+package aut.funcional.testcases;
 
 import framework.engine.selenium.DriverFactory;
 import framework.engine.selenium.SeleniumTestBase;

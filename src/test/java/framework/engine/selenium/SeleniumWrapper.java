@@ -30,6 +30,7 @@ public class SeleniumWrapper {
     }
 
     public void write(String inputText, By locator){
+        isDisplayed(locator);
         driver.findElement(locator).sendKeys(inputText);
     }
     public void sendKeys(Keys key, By locator){

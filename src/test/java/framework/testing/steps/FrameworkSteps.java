@@ -8,7 +8,7 @@ public class FrameworkSteps extends CucumberBaseTestRunner implements En {
 
     public FrameworkSteps(){
 
-        Before(1,CucumberBaseTestRunner::setUp);
+        Before(2,CucumberBaseTestRunner::setUp);
         After(CucumberBaseTestRunner::tearDown);
 
         Given("que quiero que se ejecute correctamente este test", () -> {

@@ -1,7 +1,8 @@
-package aut.testcreation.pages;
+package aut.funcional.pages;
 
 import framework.engine.selenium.SeleniumWrapper;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 
 import static framework.engine.utils.Constants.BASE_URL_AUT;
@@ -20,6 +21,7 @@ public class GoogleHomePage extends SeleniumWrapper {
     //methods
     public void buscarConBotonBuscar(String busqueda){
         write(busqueda,barraBusquedaLocator);
+        sendKeys(Keys.ESCAPE,barraBusquedaLocator);
         click(btnBuscarConGoogleLocator);
     }
 
