@@ -13,17 +13,20 @@ public class RumboVuelosPage  extends SeleniumWrapper {
     public RumboVuelosPage(WebDriver driver){
         super(driver);
     }
-    
+
+    //Estaria bueno para mañana poner metodos que validen si estan Displayed o Selected
     String url = "https://www.rumbo.es/vuelos/";
     //Locators form search
     By btnIdaYVuelta = By.xpath("//div[normalize-space()='Ida y vuelta']");
     By btnIda = By.xpath("//div[normalize-space()='Solo ida']");
     By inputOrigen = By.xpath("//input[@id='mui-1']");
     //En las listas tendre que elegir la opcion 1 y si eso falla vere de buscar el xpath de la funcion
-    By listOrigen = By.xpath("//ul[@id='mui-1-listbox']");
+    //By listOrigen = By.xpath("//ul[@id='mui-1-listbox']");
     By inputDestino = By.xpath("//input[@id='mui-2']");
-    By listDestino = By.xpath("//ul[@id='mui-2-listbox']");
-    By btnViajeros = By.xpath("//div[@class='display-uq0tvk']");
+    //By listDestino = By.xpath("//ul[@id='mui-2-listbox']");
+    By listOrigenPrimeraOpcion = By.xpath("//ul[@id='mui-1-listbox']");
+    By listDestinoPrimeraOpcion = By.xpath("//ul[@id='mui-2-listbox']");
+    By btnAddPassengers = By.xpath("//div[@class='display-uq0tvk']");
     By btnReduceAdultos = By.xpath("//button[1][@class='display-17x5pjv-Counter-styled']");
     By btnAddAdultos = By.xpath("//button[2][@class='display-17x5pjv-Counter-styled']");
     By btnAddChildList = By.xpath("//div[normalize-space()='Añadir un niño']");
@@ -31,7 +34,6 @@ public class RumboVuelosPage  extends SeleniumWrapper {
     By listChildAges = By.xpath("//ul[@class='display-vvt8xs-scrollbars-ChildPicker-styled']");
     By btnClass = By.xpath("//button[@class='display-1ug1iap-Dropdown-styled']");
     By listClass = By.xpath("//div[@class='display-1nn5x59-Overlay-styled']");
-    //By optionPremiumTurist = By.xpath("//div[normalize-space()='Turista Premium']");
     By btnFechaIda = By.xpath("//div[1][@class='display-pfh0xi']//button");
     By btnFechaVuelta = By.xpath("//div[2][@class='display-pfh0xi']//button");
     By btnSearch = By.xpath("//button[text()='Buscar']");
@@ -52,15 +54,17 @@ public class RumboVuelosPage  extends SeleniumWrapper {
     }
 
     public void selectFechaIda(By locator){
+        click(btnFechaIda);
         click(locator);
     }
     public void selectFechaVuelta(By locator){
+        click(btnFechaVuelta);
         click(locator);
     }
     public void addAdult(int cantidad) throws NullPointerException {
         try{
             if(cantidad > 0){
-             click(btnViajeros);
+             click(btnAddPassengers);
              for(int i = 0; i <cantidad; i++) {
                  click(btnAddAdultos);
              }
@@ -70,32 +74,13 @@ public class RumboVuelosPage  extends SeleniumWrapper {
         }
 
     }
-   /* public void addBebe(int cantidad, String rango){
 
-        try{
-            if(cantidad > 0 && rango != null){
-                click(btnViajeros);
-                click(btnAddChildList);
-                for(int i = 0; i <=cantidad; i++) {
-                    if (rango.equals("0-11 meses")) {
-                    click(btnAddBabyLocator1) ;
-                    } else if(rango.equals("12-23 meses")){
-                    click(btnAddBabyLocator2);
-                    }
-                }
-            }
-        }catch(NullPointerException e){
-            throw e;
-        }
-    }
-
-    */
     public void addChild(int cantidad, String rango) throws NullPointerException{
         List<WebElement> lista = findElements(listChildAges);
         WebElement actual = null;
 
             if(cantidad > 0 && rango != null){
-                click(btnViajeros);
+                click(btnAddPassengers);
                 click(btnAddChildList);
                 for(int i = 0; i <cantidad; i++) {
                     actual = lista.get(i);
@@ -127,29 +112,24 @@ public class RumboVuelosPage  extends SeleniumWrapper {
         } else {
             throw new NullPointerException();
         }
-        /*switch (clase) {
-            case "Cualquier clase":
-                lista.get(0).click();
-                break;
-            case "Turista":
-                    lista.get(1).click();
-                break;
-            case "Turista Premium":
-                lista.get(2).click();
-                break;
-            case "Business":
-                lista.get(3).click();
-                break;
-            case "Primera":
-                lista.get(4).click();
-                break;
-        }
 
-         */
     }
 
     public void clickBtnBuscar(){
         click(btnSearch);
+    }
+    public void writeOnOrigin(){
+        write("madrid",inputOrigen);
+        click(listOrigenPrimeraOpcion);
+    }
+
+    public void writeOnDestination(){
+        write("bangkok",inputDestino);
+        click(listDestinoPrimeraOpcion);
+    }
+
+    public void navigateToRyanairPage(){
+       click(findElement(By.xpath("//h4[text()= 'Ryanair'])")));
     }
 
 }
