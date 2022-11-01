@@ -15,7 +15,9 @@ public class RumboVuelosRyanair extends SeleniumWrapper {
     //url
     String url = "https://www.rumbo.es/vuelos/aerolineas/ryanair?int_type=CMS_FLI&int_campaign=SEO&int_detail=PHP_FLI_RMB_ryanair_13";
     //Locators
-    By btnFechas = By.xpath("//div[@class='calendarBox lmn-sw-select-responsive lmn-sw-tooltip-responsive']");
+    By listOrigenOpcion = By.xpath("//div[@data-value='MXP']");
+    By listDestinoOpcion = By.xpath("//div[@data-value='JFK']");
+    By buttonsDates = By.xpath("//div[@class='calendarBox lmn-sw-select-responsive lmn-sw-tooltip-responsive']");
     By inputOrigen = By.xpath("//input[@id='input-o44jj']");
     By inputDestino = By.xpath("//input[@id='input-kskxe']");
     By btnSearch = By.xpath("//div[text()='Buscar']");
@@ -28,17 +30,17 @@ public class RumboVuelosRyanair extends SeleniumWrapper {
     //21/12 = //*[@id="search-widget"]//div[1]/div[2]/div[2]/div[25]
 
     //List
-    List<WebElement> listaFechas = findElements(btnFechas);
-    List<WebElement> listaOptionPassengers = findElements(passengersOptions);
-    List <WebElement> lista = findElements(classOptions);
+    List<WebElement> listDates = findElements(buttonsDates);
+    List<WebElement> listPassengersOptions = findElements(passengersOptions);
+    List <WebElement> listClassOptions = findElements(classOptions);
 
     //Funciones
     public void selectFechaIda(By locator){
-        click(listaFechas.get(0));
+        click(listDates.get(0));
         click(locator);
     }
     public void selectFechaVuelta(By locator){
-        click(listaFechas.get(1));
+        click(listDates.get(1));
         click(locator);
     }
 
@@ -46,7 +48,7 @@ public class RumboVuelosRyanair extends SeleniumWrapper {
         if(cant > 0) {
             click(btnAddPasengers);
             for (int i = 0; i < cant; i++) {
-                click(listaOptionPassengers.get(0));
+                click(listPassengersOptions.get(0));
             }
         } else {
             throw new NullPointerException();
@@ -56,7 +58,7 @@ public class RumboVuelosRyanair extends SeleniumWrapper {
         if(cant > 0) {
         click(btnAddPasengers);
         for (int i = 0; i < cant; i++){
-            click(listaOptionPassengers.get(1));
+            click(listPassengersOptions.get(1));
         }
         } else {
             throw new NullPointerException();
@@ -66,7 +68,7 @@ public class RumboVuelosRyanair extends SeleniumWrapper {
         if(cant > 0) {
         click(btnAddPasengers);
         for (int i = 0; i < cant; i++){
-            click(listaOptionPassengers.get(2));
+            click(listPassengersOptions.get(2));
         }
         } else {
             throw new NullPointerException();
@@ -79,8 +81,8 @@ public class RumboVuelosRyanair extends SeleniumWrapper {
         boolean success = false;
         if(!clase.isEmpty()){
             click(btnChooseClass);
-            while (i < lista.size() && !success){
-                actual = lista.get(i);
+            while (i < listClassOptions.size() && !success){
+                actual = listClassOptions.get(i);
                 if(actual.equals(clase)){
                     actual.click();
                     success = true;
@@ -93,8 +95,37 @@ public class RumboVuelosRyanair extends SeleniumWrapper {
         }
 
     }
+    public void writeOnOriginRyanair(){
+        write("Milan",inputOrigen);
+        click(listOrigenOpcion);
+    }
 
+    public void writeOnDestinationRyanair(){
+        write("Nueva",inputDestino);
+        click(listDestinoOpcion);
+    }
     public void searchWithSearchBtn(){
         click(btnSearch);
     }
+
+    //El metodo write ya hace una validacion
+    public void validateInputs(){
+        isDisplayed(inputDestino);
+        isDisplayed(inputOrigen);
+    }
+    public void validateBtns(){
+        isDisplayed(buttonsDates);
+        isDisplayed(btnSearch);
+        isDisplayed(btnChooseClass);
+        isDisplayed(btnAddPasengers);
+    }
+
+    public void validateListOfOptions(){
+        click(btnAddPasengers);
+        isDisplayed(passengersOptions);
+        click(btnChooseClass);
+        isDisplayed(classOptions);
+    }
+
+    //entorno a las fechas deshabilitadas se puede hacer un assertfalse con el isEnable();
 }

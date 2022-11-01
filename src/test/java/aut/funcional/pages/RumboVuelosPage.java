@@ -20,20 +20,20 @@ public class RumboVuelosPage  extends SeleniumWrapper {
     By btnIdaYVuelta = By.xpath("//div[normalize-space()='Ida y vuelta']");
     By btnIda = By.xpath("//div[normalize-space()='Solo ida']");
     By inputOrigen = By.xpath("//input[@id='mui-1']");
-    //En las listas tendre que elegir la opcion 1 y si eso falla vere de buscar el xpath de la funcion
-    //By listOrigen = By.xpath("//ul[@id='mui-1-listbox']");
+    By alertMessageNullOrigen = By.xpath("//span[text()='Introduce ciudad o aeropuerto de origen']");
+    By alertMessageNullDestino = By.xpath("//span[text()='Introduce ciudad o aeropuerto de destino']");
+    By alertSameValueMessage = By.xpath("//span[text()='El destino coincide con el origen']");
+    By btnDelete = By.xpath("//div[@class='display-j0vjy-AutocompleterBase-styled-AutocompleterBase-styled']");
     By inputDestino = By.xpath("//input[@id='mui-2']");
-    //By listDestino = By.xpath("//ul[@id='mui-2-listbox']");
     By listOrigenPrimeraOpcion = By.xpath("//ul[@id='mui-1-listbox']");
     By listDestinoPrimeraOpcion = By.xpath("//ul[@id='mui-2-listbox']");
     By btnAddPassengers = By.xpath("//div[@class='display-uq0tvk']");
-    By btnReduceAdultos = By.xpath("//button[1][@class='display-17x5pjv-Counter-styled']");
+    //By btnReduceAdultos = By.xpath("//button[1][@class='display-17x5pjv-Counter-styled']");
     By btnAddAdultos = By.xpath("//button[2][@class='display-17x5pjv-Counter-styled']");
     By btnAddChildList = By.xpath("//div[normalize-space()='Añadir un niño']");
-
+    By listDisplayOptions = By.xpath("//div[@class='display-1nn5x59-Overlay-styled']");
     By listChildAges = By.xpath("//ul[@class='display-vvt8xs-scrollbars-ChildPicker-styled']");
     By btnClass = By.xpath("//button[@class='display-1ug1iap-Dropdown-styled']");
-    By listClass = By.xpath("//div[@class='display-1nn5x59-Overlay-styled']");
     By btnFechaIda = By.xpath("//div[1][@class='display-pfh0xi']//button");
     By btnFechaVuelta = By.xpath("//div[2][@class='display-pfh0xi']//button");
     By btnSearch = By.xpath("//button[text()='Buscar']");
@@ -44,7 +44,9 @@ public class RumboVuelosPage  extends SeleniumWrapper {
     public void navigateToViewVuelos(){
         navigateTo(url);
     }
-
+    public void navigateToViewByClick(String title){
+        click(By.xpath("//h4[text()='"+ title + "']"));
+    }
     public void selectOptionVuelo(String option){
         if (option.equals("Solo ida")) {
             click(btnIda);
@@ -76,12 +78,11 @@ public class RumboVuelosPage  extends SeleniumWrapper {
     }
 
     public void addChild(int cantidad, String rango) throws NullPointerException{
+        click(btnAddPassengers);
+        click(btnAddChildList);
         List<WebElement> lista = findElements(listChildAges);
         WebElement actual = null;
-
             if(cantidad > 0 && rango != null){
-                click(btnAddPassengers);
-                click(btnAddChildList);
                 for(int i = 0; i <cantidad; i++) {
                     actual = lista.get(i);
                     if(actual.getText().equals(rango)){
@@ -94,12 +95,12 @@ public class RumboVuelosPage  extends SeleniumWrapper {
 
     }
     public void selectClassOption(String clase) throws NullPointerException{
-        List <WebElement> lista = findElements(listClass);
+        click(btnClass);
+        List <WebElement> lista = findElements(listDisplayOptions);
         WebElement actual = null;
         int i = 0;
         boolean success = false;
         if(!clase.isEmpty()){
-            click(btnClass);
             while (i < lista.size() && !success){
                 actual = lista.get(i);
                 if(actual.equals(clase)){
@@ -128,8 +129,53 @@ public class RumboVuelosPage  extends SeleniumWrapper {
         click(listDestinoPrimeraOpcion);
     }
 
-    public void navigateToRyanairPage(){
-       click(findElement(By.xpath("//h4[text()= 'Ryanair'])")));
+    public void navigateToAirlineView(String aerolinea){
+        if(aerolinea.equals("Ryanair") || aerolinea.equals("Wizz Air") || aerolinea.equals("Avianca")){
+            click(findElement(By.xpath("//h4[text()='" + aerolinea + "']")));
+        }
+
     }
 
+    public void validateButtons(){
+        isDisplayed(btnIda);
+        isDisplayed(btnSearch);
+        isDisplayed(btnClass);
+        isDisplayed(btnAddPassengers);
+        isDisplayed(btnFechaIda);
+        isDisplayed(btnIdaYVuelta);
+        isDisplayed(btnFechaVuelta);
+        click(btnAddPassengers);
+        isDisplayed(btnAddAdultos);
+        isDisplayed(btnAddChildList);
+
+    }
+    //El metodo write ya hace una validacion
+    public void validateInputs(){
+        isDisplayed(inputDestino);
+        isDisplayed(inputOrigen);
+    }
+
+    public void validateDisplayOfOptions(){
+        click(btnAddPassengers);
+        isDisplayed(listDisplayOptions);
+        click(btnClass);
+        isDisplayed(listDisplayOptions);
+        click(btnFechaVuelta);
+        isDisplayed(listDisplayOptions);
+        click(btnFechaIda);
+        isDisplayed(listDisplayOptions);
+    }
+
+    public void validateAlertNullInputMessage(){
+        //cuando haga el test deberia hacer algun tipo de refresh
+        click(btnDelete);
+        click(btnSearch);
+        validateMessage("Introduce ciudad o aeropuerto de origen", alertMessageNullOrigen);
+        validateMessage("Introduce ciudad o aeropuerto de destino", alertMessageNullDestino);
+    }
+
+  public void validateAlertSameValueInputMessage(){
+        click(btnSearch);
+        validateMessage("El destino coincide con el origen", alertSameValueMessage);
+  }
 }

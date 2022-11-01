@@ -31,6 +31,7 @@ public class SeleniumWrapper {
 
     public void write(String inputText, By locator){
         isDisplayed(locator);
+        driver.findElement(locator).clear();
         driver.findElement(locator).sendKeys(inputText);
     }
     public void sendKeys(Keys key, By locator){
@@ -66,7 +67,13 @@ public class SeleniumWrapper {
             return false;
         }
     }
-
+    public Boolean validateMessage(String text, By locator){
+        try{
+            return driver.findElement(locator).getText().equals(text);
+        } catch (org.openqa.selenium.NoAlertPresentException e){
+            return false;
+        }
+    }
     public void navigateTo(String url){
         driver.navigate().to(url);
     }
@@ -74,5 +81,6 @@ public class SeleniumWrapper {
     public String getUrlTitle(){
         return driver.getTitle();
     }
+
 
 }
