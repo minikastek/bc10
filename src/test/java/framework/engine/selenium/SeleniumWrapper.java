@@ -4,7 +4,9 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 
+import javax.swing.*;
 import java.util.List;
 
 public class SeleniumWrapper {
@@ -41,6 +43,11 @@ public class SeleniumWrapper {
         driver.findElement(locator).click();
     }
 
+    public void moveTo(By locator){
+        WebElement localizador = driver.findElement(locator);
+        new Actions(driver).moveToElement(localizador).perform();
+    }
+
     public Boolean isDisplayed(By locator) {
         try {
             return driver.findElement(locator).isDisplayed();
@@ -71,5 +78,7 @@ public class SeleniumWrapper {
     public String getUrlTitle(){
         return driver.getTitle();
     }
+
+
 
 }
