@@ -34,6 +34,10 @@ public class SeleniumWrapper {
         driver.findElement(locator).clear();
         driver.findElement(locator).sendKeys(inputText);
     }
+    public void writeWithElement(String inputText, WebElement e){
+        e.clear();
+        e.sendKeys(inputText);
+    }
     public void sendKeys(Keys key, By locator){
         driver.findElement(locator).sendKeys(key);
     }
@@ -42,7 +46,7 @@ public class SeleniumWrapper {
         driver.findElement(locator).click();
     }
     //agregue este metodo
-    public void click(WebElement e){
+    public void clickOnElement(WebElement e){
         e.click();
     }
     public Boolean isDisplayed(By locator) {

@@ -26,7 +26,7 @@ public class RumboVuelosPage  extends SeleniumWrapper {
     By btnDelete = By.xpath("//div[@class='display-j0vjy-AutocompleterBase-styled-AutocompleterBase-styled']");
     By inputDestino = By.xpath("//input[@id='mui-2']");
     By listOrigenPrimeraOpcion = By.xpath("//ul[@id='mui-1-listbox']");
-    By listDestinoPrimeraOpcion = By.xpath("//ul[@id='mui-2-listbox']");
+    By listDestinoPrimeraOpcion = By.xpath("//*[@id='mui-2-option-0']");
     By btnAddPassengers = By.xpath("//div[@class='display-uq0tvk']");
     //By btnReduceAdultos = By.xpath("//button[1][@class='display-17x5pjv-Counter-styled']");
     By btnAddAdultos = By.xpath("//button[2][@class='display-17x5pjv-Counter-styled']");
@@ -37,6 +37,8 @@ public class RumboVuelosPage  extends SeleniumWrapper {
     By btnFechaIda = By.xpath("//div[1][@class='display-pfh0xi']//button");
     By btnFechaVuelta = By.xpath("//div[2][@class='display-pfh0xi']//button");
     By btnSearch = By.xpath("//button[text()='Buscar']");
+    By btnRejectCookies = By.xpath("//button[@class='iubenda-cs-reject-btn iubenda-cs-btn-primary']");
+    By btnEraseOrigen = By.xpath("//div[@class='display-7133s2']//child::div[@class='display-j0vjy-AutocompleterBase-styled-AutocompleterBase-styled']");
     //locators fechas
     // 28/11 = //*[@id="hub-csw-container"]//div[2]/div[2]/button[28]
     // 1/12 = //*[@id="hub-csw-container"]//div[3]/div[2]/button[1]
@@ -46,6 +48,13 @@ public class RumboVuelosPage  extends SeleniumWrapper {
     }
     public void navigateToViewByClick(String title){
         click(By.xpath("//h4[text()='"+ title + "']"));
+    }
+    public void deleteCookies(){
+        click(btnRejectCookies);
+    }
+
+    public void eraseOrigin(){
+        click(btnEraseOrigen);
     }
     public void selectOptionVuelo(String option){
         if (option.equals("Solo ida")) {
@@ -63,7 +72,7 @@ public class RumboVuelosPage  extends SeleniumWrapper {
         click(btnFechaVuelta);
         click(locator);
     }
-    public void addAdult(int cantidad) throws NullPointerException {
+    public void addAdult(int cantidad)  {
         try{
             if(cantidad > 0){
              click(btnAddPassengers);
@@ -77,7 +86,7 @@ public class RumboVuelosPage  extends SeleniumWrapper {
 
     }
 
-    public void addChild(int cantidad, String rango) throws NullPointerException{
+    public void addChild(int cantidad, String rango){
         click(btnAddPassengers);
         click(btnAddChildList);
         List<WebElement> lista = findElements(listChildAges);
@@ -86,7 +95,7 @@ public class RumboVuelosPage  extends SeleniumWrapper {
                 for(int i = 0; i <cantidad; i++) {
                     actual = lista.get(i);
                     if(actual.getText().equals(rango)){
-                        click(actual);
+                        clickOnElement(actual);
                     }
                 }
             } else {
@@ -119,19 +128,19 @@ public class RumboVuelosPage  extends SeleniumWrapper {
     public void clickBtnBuscar(){
         click(btnSearch);
     }
-    public void writeOnOrigin(){
-        write("madrid",inputOrigen);
+    public void writeOnOrigin(String origen){
+        write(origen,inputOrigen);
         click(listOrigenPrimeraOpcion);
     }
 
-    public void writeOnDestination(){
-        write("bangkok",inputDestino);
+    public void writeOnDestination(String destino){
+        write(destino,inputDestino);
         click(listDestinoPrimeraOpcion);
     }
 
     public void navigateToAirlineView(String aerolinea){
         if(aerolinea.equals("Ryanair") || aerolinea.equals("Wizz Air") || aerolinea.equals("Avianca")){
-            click(findElement(By.xpath("//h4[text()='" + aerolinea + "']")));
+            clickOnElement(findElement(By.xpath("//h4[text()='" + aerolinea + "']")));
         }
 
     }
