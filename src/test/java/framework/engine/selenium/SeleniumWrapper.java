@@ -1,12 +1,13 @@
 package framework.engine.selenium;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.FluentWait;
+import org.openqa.selenium.support.ui.Wait;
 
 import javax.swing.*;
+import java.time.Duration;
 import java.util.List;
 
 public class SeleniumWrapper {
@@ -79,6 +80,12 @@ public class SeleniumWrapper {
         return driver.getTitle();
     }
 
-
+    public void esperaImplicita(int time, By locator){
+        Wait<WebDriver> fluentWait = new FluentWait<WebDriver>(driver)
+                .withTimeout(Duration.ofSeconds(time))
+                .pollingEvery(Duration.ofMillis(100))
+                .ignoring(NoSuchElementException.class);
+        fluentWait.until(ExpectedConditions.elementToBeClickable(locator));
+    }
 
 }

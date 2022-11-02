@@ -10,8 +10,6 @@ import org.openqa.selenium.By;
 public class CrucerosTest extends SeleniumTestBase {
     RumboCrucerosPage rhp;
 
-    By octubrePeriodo = By.xpath("(//span[normalize-space()='oct'])[1]");
-
     @Test
     void TCCLC001(){
         rhp = new RumboCrucerosPage(DriverFactory.getDriver());
@@ -20,15 +18,9 @@ public class CrucerosTest extends SeleniumTestBase {
         rhp.navegarCruceros();
         rhp.navegarOfertas();
         rhp.seleccionarDestino("Caribe");
+        rhp.espera();
         rhp.seleccionarPeriodo();
-
-        Boolean prueba = true;
-        try{
-            rhp.click(octubrePeriodo);
-        }catch (Exception e){
-            prueba = false;
-        }
-        Assertions.assertEquals(false, prueba);
+        Assertions.assertEquals(false, rhp.esSeleccionable());
     }
 }
 

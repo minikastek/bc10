@@ -4,6 +4,8 @@ import framework.engine.selenium.SeleniumWrapper;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
+import java.time.Duration;
+
 public class RumboCrucerosPage extends SeleniumWrapper {
     public RumboCrucerosPage(WebDriver driver) {
         super(driver);
@@ -29,8 +31,9 @@ public class RumboCrucerosPage extends SeleniumWrapper {
     By cualquierDestinoSelector = By.xpath("(//div[@class='p-element p-multiselect-label-container ng-tns-c52-1'])[1]");
     By inputDestino = By.xpath("//input[@class='p-multiselect-filter p-inputtext p-component ng-tns-c52-1']");
     By inputPeriodo = By.xpath("(//span[normalize-space()='Cualquier periodo'])[1]");
-
     By octubrePeriodo = By.xpath("(//span[normalize-space()='oct'])[1]");
+
+
 
 
 
@@ -71,4 +74,8 @@ public class RumboCrucerosPage extends SeleniumWrapper {
         }
         return true;
     }
+
+  public void espera(){
+        esperaImplicita(5, inputPeriodo);
+  }
 }
