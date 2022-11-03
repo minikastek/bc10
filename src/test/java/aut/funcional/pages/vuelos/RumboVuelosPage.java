@@ -29,9 +29,9 @@ public class RumboVuelosPage  extends SeleniumWrapper {
     By listDestinoPrimeraOpcion = By.xpath("//*[@id='mui-2-option-0']");
     By btnAddPassengers = By.xpath("//div[@class='display-uq0tvk']");
     //By btnReduceAdultos = By.xpath("//button[1][@class='display-17x5pjv-Counter-styled']");
-    By btnAddAdultos = By.xpath("//button[2][@class='display-17x5pjv-Counter-styled']");
-    By btnAddChildList = By.xpath("//div[normalize-space()='Añadir un niño']");
-    By listDisplayOptions = By.xpath("//div[@class='display-1nn5x59-Overlay-styled']");
+    By btnAddAdultos = By.xpath("//button[@aria-label='Aumentar el número de adultos']");
+    By btnAddChildList = By.xpath("//button[@aria-label='Aumentar el número de niños']");
+    By listClassOptions = By.xpath("//div[@class='display-1nn5x59-Overlay-styled']");
     By listChildAges = By.xpath("//ul[@class='display-vvt8xs-scrollbars-ChildPicker-styled']");
     By btnClass = By.xpath("//button[@class='display-1ug1iap-Dropdown-styled']");
     By btnFechaIda = By.xpath("//div[1][@class='display-pfh0xi']//button");
@@ -72,10 +72,13 @@ public class RumboVuelosPage  extends SeleniumWrapper {
         click(btnFechaVuelta);
         click(locator);
     }
+    public void clickBtnPassengers(){
+        click(btnAddPassengers);
+    }
     public void addAdult(int cantidad)  {
         try{
             if(cantidad > 0){
-             click(btnAddPassengers);
+            // click(btnAddPassengers);
              for(int i = 0; i <cantidad; i++) {
                  click(btnAddAdultos);
              }
@@ -87,25 +90,17 @@ public class RumboVuelosPage  extends SeleniumWrapper {
     }
 
     public void addChild(int cantidad, String rango){
-        click(btnAddPassengers);
+        //click(btnAddPassengers);
         click(btnAddChildList);
         List<WebElement> lista = findElements(listChildAges);
-        WebElement actual = null;
-            if(cantidad > 0 && rango != null){
-                for(int i = 0; i <cantidad; i++) {
-                    actual = lista.get(i);
-                    if(actual.getText().equals(rango)){
-                        clickOnElement(actual);
-                    }
-                }
-            } else {
-                throw new NullPointerException();
-            }
-
+        for (int i = 0; i < lista.size() ; i++) {
+            click(By.xpath("//li[normalize-space()='"+rango+"']"));
+        }
     }
+    // //li[normalize-space()='Bebé, 0-11 meses']
     public void selectClassOption(String clase) throws NullPointerException{
         click(btnClass);
-        List <WebElement> lista = findElements(listDisplayOptions);
+        List <WebElement> lista = findElements(listClassOptions);
         WebElement actual = null;
         int i = 0;
         boolean success = false;
@@ -166,19 +161,17 @@ public class RumboVuelosPage  extends SeleniumWrapper {
 
     public void validateDisplayOfOptions(){
         click(btnAddPassengers);
-        isDisplayed(listDisplayOptions);
+        isDisplayed(listClassOptions);
         click(btnClass);
-        isDisplayed(listDisplayOptions);
+        isDisplayed(listClassOptions);
         click(btnFechaVuelta);
-        isDisplayed(listDisplayOptions);
+        isDisplayed(listClassOptions);
         click(btnFechaIda);
-        isDisplayed(listDisplayOptions);
+        isDisplayed(listClassOptions);
     }
 
     public void validateAlertNullInputMessage(){
         //cuando haga el test deberia hacer algun tipo de refresh
-        click(btnDelete);
-        click(btnSearch);
         validateMessage("Introduce ciudad o aeropuerto de origen", alertMessageNullOrigen);
         validateMessage("Introduce ciudad o aeropuerto de destino", alertMessageNullDestino);
     }
