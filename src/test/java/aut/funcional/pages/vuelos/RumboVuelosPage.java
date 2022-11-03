@@ -26,19 +26,23 @@ public class RumboVuelosPage  extends SeleniumWrapper {
     By btnDelete = By.xpath("//div[@class='display-j0vjy-AutocompleterBase-styled-AutocompleterBase-styled']");
     By inputDestino = By.xpath("//input[@id='mui-2']");
     By listOrigenPrimeraOpcion = By.xpath("//ul[@id='mui-1-listbox']");
-    By listDestinoPrimeraOpcion = By.xpath("//*[@id='mui-2-option-0']");
+    By listDestinoPrimeraOpcion = By.xpath("//*[@id='mui-2-option-0' or @class='display-1xh37dz-Autocompleter-styled Mui-focused']");
     By btnAddPassengers = By.xpath("//div[@class='display-uq0tvk']");
     //By btnReduceAdultos = By.xpath("//button[1][@class='display-17x5pjv-Counter-styled']");
     By btnAddAdultos = By.xpath("//button[@aria-label='Aumentar el número de adultos']");
     By btnAddChildList = By.xpath("//button[@aria-label='Aumentar el número de niños']");
-    By listClassOptions = By.xpath("//div[@class='display-1nn5x59-Overlay-styled']");
+    By listClassOptions = By.xpath("//div[@class='display-1uq2lt0-DropdownList-styled-DropdownList-styled']");
+    //div[@class='display-1nn5x59-Overlay-styled']
     By listChildAges = By.xpath("//ul[@class='display-vvt8xs-scrollbars-ChildPicker-styled']");
-    By btnClass = By.xpath("//button[@class='display-1ug1iap-Dropdown-styled']");
+    By btnClass = By.xpath("//div[@class='display-12cbrmg']");
     By btnFechaIda = By.xpath("//div[1][@class='display-pfh0xi']//button");
     By btnFechaVuelta = By.xpath("//div[2][@class='display-pfh0xi']//button");
     By btnSearch = By.xpath("//button[text()='Buscar']");
     By btnRejectCookies = By.xpath("//button[@class='iubenda-cs-reject-btn iubenda-cs-btn-primary']");
-    By btnEraseOrigen = By.xpath("//div[@class='display-7133s2']//child::div[@class='display-j0vjy-AutocompleterBase-styled-AutocompleterBase-styled']");
+    By btnEraseOrigen = By.xpath("//div[@aria-label='Clear']");
+    By btnPreviousMonth = By.xpath("//button[@aria-label='Previous month']");
+    By btnNextMonth = By.xpath("//button[@aria-label='Next month']");
+    //div[@class='display-7133s2']//child::div[@class='display-j0vjy-AutocompleterBase-styled-AutocompleterBase-styled']
     //locators fechas
     // 28/11 = //*[@id="hub-csw-container"]//div[2]/div[2]/button[28]
     // 1/12 = //*[@id="hub-csw-container"]//div[3]/div[2]/button[1]
@@ -63,14 +67,22 @@ public class RumboVuelosPage  extends SeleniumWrapper {
             click(btnIdaYVuelta);
         }
     }
-
+    public boolean validateDisableBtn(By locator){
+        return isEnabled(locator);
+    }
     public void selectFechaIda(By locator){
-        click(btnFechaIda);
+        clickFechaIda();
         click(locator);
     }
+    public void clickFechaIda(){
+        click(btnFechaIda);
+    }
     public void selectFechaVuelta(By locator){
-        click(btnFechaVuelta);
+        clickFechaVuelta();
         click(locator);
+    }
+    public void clickFechaVuelta(){
+        click(btnFechaVuelta);
     }
     public void clickBtnPassengers(){
         click(btnAddPassengers);
@@ -78,7 +90,6 @@ public class RumboVuelosPage  extends SeleniumWrapper {
     public void addAdult(int cantidad)  {
         try{
             if(cantidad > 0){
-            // click(btnAddPassengers);
              for(int i = 0; i <cantidad; i++) {
                  click(btnAddAdultos);
              }
@@ -86,7 +97,6 @@ public class RumboVuelosPage  extends SeleniumWrapper {
         }catch(NullPointerException e){
             throw e;
         }
-
     }
 
     public void addChild(int cantidad, String rango){
@@ -98,7 +108,7 @@ public class RumboVuelosPage  extends SeleniumWrapper {
         }
     }
     // //li[normalize-space()='Bebé, 0-11 meses']
-    public void selectClassOption(String clase) throws NullPointerException{
+    public void selectClassOption(String clase) {
         click(btnClass);
         List <WebElement> lista = findElements(listClassOptions);
         WebElement actual = null;
@@ -107,7 +117,7 @@ public class RumboVuelosPage  extends SeleniumWrapper {
         if(!clase.isEmpty()){
             while (i < lista.size() && !success){
                 actual = lista.get(i);
-                if(actual.equals(clase)){
+                if(actual.getText().equals(clase)){
                     actual.click();
                     success = true;
                 } else {
@@ -128,8 +138,9 @@ public class RumboVuelosPage  extends SeleniumWrapper {
         click(listOrigenPrimeraOpcion);
     }
 
-    public void writeOnDestination(String destino){
+    public void writeOnDestination(String destino) throws InterruptedException {
         write(destino,inputDestino);
+        //Thread.sleep(3000);
         click(listDestinoPrimeraOpcion);
     }
 
@@ -170,14 +181,16 @@ public class RumboVuelosPage  extends SeleniumWrapper {
         isDisplayed(listClassOptions);
     }
 
-    public void validateAlertNullInputMessage(){
+    public boolean validateAlertNullInputMessage(){
         //cuando haga el test deberia hacer algun tipo de refresh
-        validateMessage("Introduce ciudad o aeropuerto de origen", alertMessageNullOrigen);
-        validateMessage("Introduce ciudad o aeropuerto de destino", alertMessageNullDestino);
+        boolean message1 = validateMessage("Introduce ciudad o aeropuerto de origen", alertMessageNullOrigen);
+        boolean message2 = validateMessage("Introduce ciudad o aeropuerto de destino", alertMessageNullDestino);
+        return message1 && message2;
     }
 
-  public void validateAlertSameValueInputMessage(){
+  public boolean validateAlertSameValueInputMessage(){
         click(btnSearch);
-        validateMessage("El destino coincide con el origen", alertSameValueMessage);
+        boolean result = validateMessage("El destino coincide con el origen", alertSameValueMessage);
+        return result;
   }
 }
