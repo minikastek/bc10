@@ -17,7 +17,7 @@ public class RumboVuelosRyanair extends SeleniumWrapper {
     //Locators
     By listOrigenOpcion = By.xpath("//div[@data-value='MXP']");
     By listDestinoOpcion = By.xpath("//div[@data-value='JFK']");
-    By buttonsDates = By.xpath("//div[@class='calendarBox lmn-sw-select-responsive lmn-sw-tooltip-responsive']");
+    By buttonsDates = By.xpath("//div[@class='calendarBoxText lmn-sw-responsive-form-field lmn-sw-tooltip-responsive__text']");
 
     By btnSearch = By.xpath("//div[text()='Buscar']");
     By btnAddPasengers = By.xpath("//div[starts-with(@class, 'passengersDropdown')]");
@@ -35,7 +35,8 @@ public class RumboVuelosRyanair extends SeleniumWrapper {
 
     //Funciones
     public void selectFechaIda(By locator, int mes){
-        clickOnElement(listDates.get(0));
+        //clickOnElement(listDates.get(0));
+        click(By.xpath("//div[@class='calendarBoxContainer outboundCalendarContainer']//child::div[@data-test='lmn-sw-cal-outbound']"));
         if(mes > 0) {
             for (int i = 0; i < mes; i++) {
                 click(calendarArrowRight);
@@ -44,7 +45,8 @@ public class RumboVuelosRyanair extends SeleniumWrapper {
         click(locator);
     }
     public void selectFechaVuelta(By locator, int mes){
-        clickOnElement(listDates.get(1));
+        //clickOnElement(listDates.get(1));
+        click(By.xpath("//div[@class='calendarBoxContainer inboundCalendarContainer']//child::div[@data-test='lmn-sw-cal-inbound']"));
         if(mes > 0) {
             for (int i = 0; i < mes; i++) {
                 click(calendarArrowRight);

@@ -28,14 +28,21 @@ public class TestVuelos extends SeleniumTestBase {
     @Test
     //TCV-MC-001 Busqueda de vuelos de la Aerolinea Ryanair
     void test1(){
-        //rumboVuelos = new RumboVuelosPage(super.driver);
+        Wait<WebDriver> fluentwait = new FluentWait<WebDriver>(driver)
+                .withTimeout(Duration.ofSeconds(10))
+                .pollingEvery(Duration.ofMillis(100))
+                .ignoring(NoSuchElementException.class);
+
+
+        rumboVuelos = new RumboVuelosPage(super.driver);
         rumboVuelosRyanair = new RumboVuelosRyanair(super.driver);
-        //rumboVuelos.navigateToViewVuelos();
-        //rumboVuelos.navigateToAirlineView("Ryanair");
-        rumboVuelosRyanair.navigateToHomePage();
-        rumboVuelosRyanair.deleteCookies();
-        rumboVuelosRyanair.writeOnOriginRyanair();
-        rumboVuelosRyanair.writeOnDestinationRyanair();
+        rumboVuelos.navigateToViewVuelos();
+        rumboVuelos.deleteCookies();
+        rumboVuelos.navigateToAirlineView("Ryanair");
+        //rumboVuelosRyanair.navigateToHomePage();
+        //rumboVuelosRyanair.writeOnOriginRyanair();
+        //rumboVuelosRyanair.writeOnDestinationRyanair();
+        fluentwait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[@class='calendarBoxContainer outboundCalendarContainer']//child::div[@data-test='lmn-sw-cal-outbound']")));
         rumboVuelosRyanair.selectFechaIda(fechaIdaLocator1, 0);
         rumboVuelosRyanair.selectFechaVuelta(fechaVueltaLocator1, 1);
         rumboVuelosRyanair.addPassengers("Adultos", 3);
@@ -48,7 +55,7 @@ public class TestVuelos extends SeleniumTestBase {
     @Test
     void test2() throws InterruptedException, IOException {
         Wait<WebDriver> fluentwait = new FluentWait<WebDriver>(driver)
-                .withTimeout(Duration.ofSeconds(10))
+                .withTimeout(Duration.ofSeconds(20))
                 .pollingEvery(Duration.ofMillis(100))
                 .ignoring(NoSuchElementException.class);
         rumboVuelos = new RumboVuelosPage(super.driver);
@@ -67,14 +74,28 @@ public class TestVuelos extends SeleniumTestBase {
         rumboVuelos.addChild(1, "10 años");
         rumboVuelos.selectClassOption("Turista Premium");
         rumboVuelos.clickBtnBuscar();
-        fluentwait.until(ExpectedConditions.urlMatches(driver.getCurrentUrl()));
+        fluentwait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[@class='content-layout-view__column-right col-md-9']")));
+        //fluentwait.until(ExpectedConditions.urlMatches(driver.getCurrentUrl()));
         File scrFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
         FileUtils.copyFile(scrFile, new File("./imageTest2Vuelos.png"));
     }
     //TCV-HC-001
     @Test
-    void test3(){
-
+    void test3() throws InterruptedException {
+        rumboVuelos = new RumboVuelosPage(super.driver);
+        rumboVuelos.navigateToViewVuelos();
+        rumboVuelos.deleteCookies();
+        rumboVuelos.selectOptionVuelo("Solo ida");
+        rumboVuelos.writeOnOrigin("Madrid (MAD) Adolfo Suárez Barajas, España");
+        rumboVuelos.writeOnDestination("Bangkok Todos los aeropuertos, Tailandia");
+        rumboVuelos.clickFechaIda();
+        rumboVuelos.selectFechaIda(By.xpath("//*[@id='hub-csw-container']//section//div[2]/div[2]/button[25]"));
+        rumboVuelos.addAdult(2);
+        rumboVuelos.addChild(1, "Bebé, 0-11 meses");
+        rumboVuelos.addChild(1, "4 años");
+        rumboVuelos.addChild(1, "7 años");
+        rumboVuelos.selectClassOption("Turista Premium");
+        rumboVuelos.clickBtnBuscar();
     }
     //TCV-LC-001
     @Test
@@ -98,7 +119,7 @@ public class TestVuelos extends SeleniumTestBase {
         rumboVuelos.deleteCookies();
         rumboVuelos.selectOptionVuelo("Solo ida");
         rumboVuelos.eraseOrigin();
-        rumboVuelos.selectFechaIda(By.xpath("//button[26]"));
+        rumboVuelos.selectFechaIda(By.xpath("//button[25]"));
         //No hace falta que haga click en add pasajeros porque se abre automaticamente luego de introducir la fecha
         rumboVuelos.addAdult(2);
         rumboVuelos.addChild(1, "Bebé, 0-11 meses");
