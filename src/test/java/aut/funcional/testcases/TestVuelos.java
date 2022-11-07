@@ -1,18 +1,17 @@
 package aut.funcional.testcases;
 
+import aut.funcional.pages.vuelos.RumboVuelosFDS;
 import aut.funcional.pages.vuelos.RumboVuelosPage;
 import aut.funcional.pages.vuelos.RumboVuelosRyanair;
 import aut.funcional.pages.vuelos.RumboVuelosShoping;
+import framework.engine.selenium.DriverFactory;
 import framework.engine.selenium.SeleniumTestBase;
 import org.apache.commons.io.FileUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.ExpectedCondition;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.FluentWait;
-import org.openqa.selenium.support.ui.Wait;
+import org.openqa.selenium.support.ui.*;
 
 import java.io.File;
 import java.io.IOException;
@@ -20,6 +19,7 @@ import java.time.Duration;
 
 public class TestVuelos extends SeleniumTestBase {
     RumboVuelosPage rumboVuelos;
+    RumboVuelosFDS rumboFDS;
     RumboVuelosRyanair rumboVuelosRyanair;
     RumboVuelosShoping rumboShopping;
     By fechaIdaLocator1 = By.xpath("//div[@class='monthContainer monthContainerFirst']//child::div[text()='12']");
@@ -30,37 +30,36 @@ public class TestVuelos extends SeleniumTestBase {
     By fechaVueltaLocator3 = By.xpath("//*[@id='hub-csw-container']//section//div/div[3]/div[2]/button[1]");
     @Test
     //TCV-MC-001 Busqueda de vuelos de la Aerolinea Ryanair
-    void test1(){
-        Wait<WebDriver> fluentwait = new FluentWait<WebDriver>(driver)
-                .withTimeout(Duration.ofSeconds(10))
-                .pollingEvery(Duration.ofMillis(100))
-                .ignoring(NoSuchElementException.class);
-
-
+    void test1() throws InterruptedException, IOException {
+        rumboShopping = new RumboVuelosShoping(super.driver);
         rumboVuelos = new RumboVuelosPage(super.driver);
         rumboVuelosRyanair = new RumboVuelosRyanair(super.driver);
         rumboVuelos.navigateToViewVuelos();
         rumboVuelos.deleteCookies();
         rumboVuelos.navigateToAirlineView("Ryanair");
-        //rumboVuelosRyanair.navigateToHomePage();
-        //rumboVuelosRyanair.writeOnOriginRyanair();
-        //rumboVuelosRyanair.writeOnDestinationRyanair();
-        fluentwait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[@class='calendarBoxContainer outboundCalendarContainer']//child::div[@data-test='lmn-sw-cal-outbound']")));
+        rumboVuelos.handleTab();
+        File scrFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+        FileUtils.copyFile(scrFile, new File("./imageTest1AVuelos.png"));
+        rumboVuelosRyanair.writeOnOriginRyanair();
+        rumboVuelosRyanair.writeOnDestinationRyanair();
+        rumboVuelosRyanair.clickFechaIda();
         rumboVuelosRyanair.selectFechaIda(fechaIdaLocator1, 0);
+        rumboVuelosRyanair.clickFechaVuelta();
         rumboVuelosRyanair.selectFechaVuelta(fechaVueltaLocator1, 1);
         rumboVuelosRyanair.addPassengers("Adultos", 3);
         rumboVuelosRyanair.addPassengers("Niños", 1);
-        rumboVuelosRyanair.selectClassOption("Bussiness");
+        rumboVuelosRyanair.selectClassOption("Business");
         rumboVuelosRyanair.searchWithSearchBtn();
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
+        Assertions.assertTrue(rumboShopping.validateViewShopping());
+        File scrFile2 = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+        FileUtils.copyFile(scrFile2, new File("./imageTest1BVuelos.png"));
     }
 
     //TCV-MC-002
     @Test
     void test2() throws InterruptedException, IOException {
-        Wait<WebDriver> fluentwait = new FluentWait<WebDriver>(driver)
-                .withTimeout(Duration.ofSeconds(20))
-                .pollingEvery(Duration.ofMillis(100))
-                .ignoring(NoSuchElementException.class);
+       rumboShopping = new RumboVuelosShoping(super.driver);
         rumboVuelos = new RumboVuelosPage(super.driver);
         rumboVuelos.navigateToViewVuelos();
         rumboVuelos.deleteCookies();
@@ -68,7 +67,7 @@ public class TestVuelos extends SeleniumTestBase {
         rumboVuelos.writeOnOrigin("Madrid (MAD) Adolfo Suárez Barajas, España");
         rumboVuelos.writeOnDestination("Bangkok Todos los aeropuertos, Tailandia");
         rumboVuelos.clickFechaIda();
-        rumboVuelos.selectFechaIda(By.xpath("//*[@id='hub-csw-container']//section//div[2]/div[2]/button[26]"));
+        rumboVuelos.selectFechaIda(By.xpath("//*[@id='hub-csw-container']//section//div[2]/div[2]/button[22]"));
         rumboVuelos.clickFechaVuelta();
         rumboVuelos.selectFechaVuelta(fechaVueltaLocator3);
         rumboVuelos.addAdult(1);
@@ -77,10 +76,10 @@ public class TestVuelos extends SeleniumTestBase {
         rumboVuelos.addChild(1, "10 años");
         rumboVuelos.selectClassOption("Turista Premium");
         rumboVuelos.clickBtnBuscar();
-        fluentwait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[@class='content-layout-view__column-right col-md-9']")));
-        //fluentwait.until(ExpectedConditions.urlMatches(driver.getCurrentUrl()));
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
         File scrFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
         FileUtils.copyFile(scrFile, new File("./imageTest2Vuelos.png"));
+        Assertions.assertTrue(rumboShopping.validateBannerPlus());
     }
     //TCV-HC-001
     @Test
@@ -93,7 +92,7 @@ public class TestVuelos extends SeleniumTestBase {
         rumboVuelos.writeOnOrigin("Madrid (MAD) Adolfo Suárez Barajas, España");
         rumboVuelos.writeOnDestination("Bangkok Todos los aeropuertos, Tailandia");
         rumboVuelos.clickFechaIda();
-        rumboVuelos.selectFechaIda(By.xpath("//*[@id='hub-csw-container']//section//div[2]/div[2]/button[25]"));
+        rumboVuelos.selectFechaIda(By.xpath("//button[22]"));
         rumboVuelos.addAdult(2);
         rumboVuelos.addChild(1, "Bebé, 0-11 meses");
         rumboVuelos.addChild(1, "4 años");
@@ -168,7 +167,7 @@ public class TestVuelos extends SeleniumTestBase {
     //TCV-LC-001
     @Test
     void test4() throws IOException, InterruptedException {
-        rumboVuelos = new RumboVuelosPage(super.driver);
+        rumboVuelos = new RumboVuelosPage(DriverFactory.getDriver());
         rumboVuelos.navigateToViewVuelos();
         rumboVuelos.deleteCookies();
         rumboVuelos.selectOptionVuelo("Ida y vuelta");
@@ -202,16 +201,58 @@ public class TestVuelos extends SeleniumTestBase {
     }
     //TCV-HC-002
     @Test
-    void test6(){
+    void test6() throws InterruptedException {
+        rumboFDS = new RumboVuelosFDS(DriverFactory.getDriver());
         rumboVuelos = new RumboVuelosPage(super.driver);
         rumboShopping = new RumboVuelosShoping(super.driver);
         rumboVuelos.navigateToViewVuelos();
         rumboVuelos.deleteCookies();
+        //voy a vuelos baratos
         rumboVuelos.moveTo(By.xpath("//p[normalize-space()='¿Estás pensando en escaparte alguno de los próximos findes? ¡Te lo ponemos fácil!']"));
+        //voy a vuelos fin de semana
         rumboVuelos.navigateToViewByClick("Vuelos de fin de semana");
-        rumboShopping.moveTo(By.xpath("//h1[normalize-space()='Salidas desde Barcelona o Girona']"));
-        //rumboShopping.selectElement(By.xpath("//div[9]//div[2]//a/div"));
-
+        rumboFDS.handleTab();
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        //me muevo hacia abajo para cargar
+        rumboFDS.gotToSubTitle("Salidas desde Madrid");
+        rumboFDS.gotToSubTitle("Salidas desde Barcelona o Girona");
+        //eligo ibiza en subtitulo 2
+        rumboFDS.clickOnElementOnSubtitle2("Ibiza");
+        rumboFDS.handleTab();
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        //Me muevo a la seccion escalas
+        rumboShopping.moveTo(By.xpath("//div[starts-with(@id,'filters-section--timerange')]"));
+        //Ninguna ida
+        rumboShopping.selectElement(By.xpath("//*[@id='filters-section--stops__view141']//div[2]//li[1]"));
+        //Thread.sleep(3000);
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(25));
+        //Ninguna vuelta
+        rumboShopping.selectElement(By.xpath("//*[@id='filters-section--stops__view141']//div[3]//li[1]"));
+        Thread.sleep(3000);
+        //ver solo viajes sin escalas
+        rumboShopping.selectElement(By.xpath("//label[@data-e2e='brgui-switcher']"));
+        Thread.sleep(3000);
+        //duracion de la escala
+        rumboShopping.selectBarFilter(By.xpath("//*[@id='filters-section--stops__view141']//div[4]//div[3]//div[2]"));
+        Thread.sleep(3000);
+        rumboShopping.moveTo(By.xpath("//div[@class='providers-filter-view__top-providers']"));
+        rumboShopping.selectCompañia("Air Europa");
+        Thread.sleep(3000);
+        //clean filters
+        rumboShopping.cleanFilters();
+        Thread.sleep(3000);
+        rumboShopping.selectOptionTheCheapiestFlight();
+        Thread.sleep(3000);
+        rumboShopping.selectOptionFastestFlight();
+        Thread.sleep(3000);
+        rumboShopping.selectFlight(By.id("2022-11-19T21:05:00.000-2022-11-19T22:00:00.000-BCN-IBZ"));
+        Thread.sleep(3000);
+        rumboShopping.clickPrice(By.xpath("//div[@class='FullTripCard__SelectedPriceContainer-sc-z8znd4-4 dZEvhO']"));
+        Thread.sleep(5000);
+        rumboShopping.clickVerDetalles();
+        rumboShopping.closeDetalles();
+        rumboShopping.selectFlexible();
+        Assertions.assertTrue(rumboShopping.validateAlmostFinishedProcess());
     }
     //TCV-LC-003
     @Test
