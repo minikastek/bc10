@@ -7,12 +7,14 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.openqa.selenium.WebDriver;
 
+import java.time.Duration;
 import java.util.Properties;
 
 public class SeleniumTestBase {
 
     private DriverFactory driverFactory;
-    WebDriver driver;
+    //cambie el driver a public
+    public WebDriver driver;
     static Properties properties;
 
     @BeforeAll
@@ -22,14 +24,21 @@ public class SeleniumTestBase {
 
     @BeforeEach
     void webDriverSetup(){
-        String browserName = properties.getProperty("browser");
+        //cambie el "browser" por edge
+        //String browserName = properties.getProperty("browser");
         driverFactory = new DriverFactory();
-        driver = driverFactory.inicializarDriver(browserName);
+        //driver = driverFactory.inicializarDriver(browserName);
+        driver = driverFactory.createWebDriver();
+        driver.manage().window().maximize();
+        driver.manage().deleteAllCookies();
+        driver.manage().timeouts().implicitlyWait(Duration.ofMillis(1500));
     }
 
-    @AfterEach
+   /* @AfterEach
     void close(){
         driver.quit();
     }
+
+    */
 
 }
