@@ -5,9 +5,14 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.FluentWait;
+import org.openqa.selenium.support.ui.Wait;
 
 import javax.swing.*;
+import java.time.Duration;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 public class SeleniumWrapper {
 
@@ -40,6 +45,13 @@ public class SeleniumWrapper {
         e.clear();
         e.sendKeys(inputText);
     }
+    public void clickElementonTheMiddle(By locator){
+        WebElement clickable = driver.findElement(locator);
+        new Actions(driver)
+                .moveToElement(clickable)
+                .click(clickable)
+                .perform();
+    }
     public void sendKeys(Keys key, By locator){
         driver.findElement(locator).sendKeys(key);
     }
@@ -53,6 +65,13 @@ public class SeleniumWrapper {
         e.click();
     }
 
+    public void esperaImplicita(int time, By locator){
+        Wait<WebDriver> fluentWait = new FluentWait<WebDriver>(driver)
+                .withTimeout(Duration.ofSeconds(time))
+                .pollingEvery(Duration.ofMillis(100))
+                .ignoring(NoSuchElementException.class);
+        fluentWait.until(ExpectedConditions.elementToBeClickable(locator));
+    }
 
     public void moveTo(By locator){
         WebElement localizador = driver.findElement(locator);
