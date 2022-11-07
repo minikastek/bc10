@@ -1,17 +1,15 @@
 package framework.engine.selenium;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Wait;
 
-import javax.swing.*;
 import java.time.Duration;
 import java.util.List;
+import java.util.Set;
+import javax.swing.*;
 import java.util.NoSuchElementException;
 
 public class SeleniumWrapper {
@@ -56,8 +54,9 @@ public class SeleniumWrapper {
         driver.findElement(locator).sendKeys(key);
     }
 
-    public void click(By locator){
+    public boolean click(By locator){
         driver.findElement(locator).click();
+        return false;
     }
 
     //agregue este metodo
@@ -116,6 +115,64 @@ public class SeleniumWrapper {
         return driver.getTitle();
     }
 
+    public void esperaImplicita(int time, By locator){
+        Wait<WebDriver> fluentWait = new FluentWait<WebDriver>(driver)
+                .withTimeout(Duration.ofSeconds(time))
+                .pollingEvery(Duration.ofMillis(100))
+                .ignoring(NoSuchElementException.class);
+        fluentWait.until(ExpectedConditions.elementToBeClickable(locator));
+    }
 
+    public void handleTab(){
+        String mainTab = driver.getWindowHandle();
+        String nweTab = "";
+        Set<String> handles = driver.getWindowHandles();
+
+        for(String actual: handles){
+            if(!actual.equalsIgnoreCase(mainTab)){
+                driver.switchTo().window(actual);
+                nweTab = actual;
+            }
+        }
+    }
+
+    public void cambioFrame(String id){
+        driver.switchTo().frame(id);
+    }
+
+    public void limpiarInput(By locator){
+        driver.findElement(locator).clear();
+    }
+
+    public void submit(By locator){
+        driver.findElement(locator).submit();
+    }
+
+    public Integer cortarDescuento(String descuento){
+        String subDescuento = "";
+        if (descuento.length() == 4){
+            subDescuento = descuento.substring(1,3);
+        }else if (descuento.length() == 3){
+            subDescuento = descuento.substring(1,2);
+        } else if (descuento.length() == 6){
+            subDescuento = descuento.substring(0,4);
+        }else if(descuento.length() == 5){
+            subDescuento = descuento.substring(0,3);
+        }
+        return Integer.parseInt(subDescuento);
+        //System.out.println(subDescuento);
+    }
+
+    public Integer numeroMayor(List<Integer> numeros){
+       /* int numeroMayor = 0;
+        for (int i = 0; i < numeros.size(); i++) {
+            if(numeros.get(i) > numeroMayor){
+                System.out.println(numeros.stream().max());
+                numeroMayor = numeros.indexOf(i);
+            }
+        }*/
+        Integer numeroMayor = numeros.stream().max(Integer::compare).get();
+        return numeroMayor;
+    }
 
 }
