@@ -31,9 +31,9 @@ public class TestVuelos extends SeleniumTestBase {
     @Test
     //TCV-MC-001 Busqueda de vuelos de la Aerolinea Ryanair
     void test1() throws InterruptedException, IOException {
-        rumboShopping = new RumboVuelosShoping(super.driver);
-        rumboVuelos = new RumboVuelosPage(super.driver);
-        rumboVuelosRyanair = new RumboVuelosRyanair(super.driver);
+        rumboShopping = new RumboVuelosShoping(DriverFactory.getDriver());
+        rumboVuelos = new RumboVuelosPage(DriverFactory.getDriver());
+        rumboVuelosRyanair = new RumboVuelosRyanair(DriverFactory.getDriver());
         rumboVuelos.navigateToViewVuelos();
         rumboVuelos.deleteCookies();
         rumboVuelos.navigateToAirlineView("Ryanair");
@@ -59,8 +59,8 @@ public class TestVuelos extends SeleniumTestBase {
     //TCV-MC-002
     @Test
     void test2() throws InterruptedException, IOException {
-       rumboShopping = new RumboVuelosShoping(super.driver);
-        rumboVuelos = new RumboVuelosPage(super.driver);
+       rumboShopping = new RumboVuelosShoping(DriverFactory.getDriver());
+        rumboVuelos = new RumboVuelosPage(DriverFactory.getDriver());
         rumboVuelos.navigateToViewVuelos();
         rumboVuelos.deleteCookies();
         rumboVuelos.selectOptionVuelo("Ida y vuelta");
@@ -85,7 +85,7 @@ public class TestVuelos extends SeleniumTestBase {
     @Test
     void test3() throws InterruptedException {
 
-        rumboVuelos = new RumboVuelosPage(super.driver);
+        rumboVuelos = new RumboVuelosPage(DriverFactory.getDriver());
         rumboVuelos.navigateToViewVuelos();
         rumboVuelos.deleteCookies();
         rumboVuelos.selectOptionVuelo("Solo ida");
@@ -111,7 +111,7 @@ public class TestVuelos extends SeleniumTestBase {
                 .withTimeout(Duration.ofSeconds(30))
                 .pollingEvery(Duration.ofMillis(100))
                 .ignoring(NoSuchElementException.class);
-        rumboVuelos = new RumboVuelosPage(super.driver);
+        rumboVuelos = new RumboVuelosPage(DriverFactory.getDriver());
         rumboVuelos.navigateToViewVuelos();
         rumboVuelos.deleteCookies();
         rumboVuelos.navigateTo("https://vuelos.rumbo.es/flight/shopping/results/1h58xguol83cw");
@@ -181,7 +181,7 @@ public class TestVuelos extends SeleniumTestBase {
     //TCV-LC-002
     @Test
     void test5() throws IOException {
-        rumboVuelos = new RumboVuelosPage(super.driver);
+        rumboVuelos = new RumboVuelosPage(DriverFactory.getDriver());
         rumboVuelos.navigateToViewVuelos();
         rumboVuelos.deleteCookies();
         rumboVuelos.selectOptionVuelo("Solo ida");
@@ -203,8 +203,8 @@ public class TestVuelos extends SeleniumTestBase {
     @Test
     void test6() throws InterruptedException {
         rumboFDS = new RumboVuelosFDS(DriverFactory.getDriver());
-        rumboVuelos = new RumboVuelosPage(super.driver);
-        rumboShopping = new RumboVuelosShoping(super.driver);
+        rumboVuelos = new RumboVuelosPage(DriverFactory.getDriver());
+        rumboShopping = new RumboVuelosShoping(DriverFactory.getDriver());
         rumboVuelos.navigateToViewVuelos();
         rumboVuelos.deleteCookies();
         //voy a vuelos baratos
@@ -224,8 +224,8 @@ public class TestVuelos extends SeleniumTestBase {
         rumboShopping.moveTo(By.xpath("//div[starts-with(@id,'filters-section--timerange')]"));
         //Ninguna ida
         rumboShopping.selectElement(By.xpath("//*[@id='filters-section--stops__view141']//div[2]//li[1]"));
-        //Thread.sleep(3000);
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(25));
+        Thread.sleep(3000);
+        //driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(25));
         //Ninguna vuelta
         rumboShopping.selectElement(By.xpath("//*[@id='filters-section--stops__view141']//div[3]//li[1]"));
         Thread.sleep(3000);
@@ -257,7 +257,7 @@ public class TestVuelos extends SeleniumTestBase {
     //TCV-LC-003
     @Test
     void test7(){
-        rumboVuelos = new RumboVuelosPage(super.driver);
+        rumboVuelos = new RumboVuelosPage(DriverFactory.getDriver());
         rumboVuelos.navigateToViewVuelos();
         rumboVuelos.deleteCookies();
         rumboVuelos.selectOptionVuelo("Ida y vuelta");
@@ -270,7 +270,7 @@ public class TestVuelos extends SeleniumTestBase {
     //TCV-LC-004
     @Test
     void test8(){
-        rumboVuelos = new RumboVuelosPage(super.driver);
+        rumboVuelos = new RumboVuelosPage(DriverFactory.getDriver());
         rumboVuelos.navigateToViewVuelos();
         rumboVuelos.deleteCookies();
         rumboVuelos.selectOptionVuelo("Ida y vuelta");
