@@ -5,12 +5,14 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Wait;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 import java.util.List;
 import java.util.Set;
 import javax.swing.*;
 import java.util.NoSuchElementException;
+import java.util.Set;
 
 public class SeleniumWrapper {
 
@@ -72,6 +74,21 @@ public class SeleniumWrapper {
         fluentWait.until(ExpectedConditions.elementToBeClickable(locator));
     }
 
+    public void waitUntil(By locator, int seconds){
+        WebElement foo = new WebDriverWait(driver, Duration.ofSeconds(seconds))
+                .until(driver -> driver.findElement(locator));
+    }
+    public void handleTab(){
+        String mainTab = driver.getWindowHandle();
+        String nweTab = "";
+        Set<String> handles = driver.getWindowHandles();
+        for(String actual: handles){
+            if(!actual.equalsIgnoreCase(mainTab)){
+                driver.switchTo().window(actual);
+                nweTab = actual;
+            }
+        }
+    }
     public void moveTo(By locator){
         WebElement localizador = driver.findElement(locator);
         new Actions(driver).moveToElement(localizador).perform();
