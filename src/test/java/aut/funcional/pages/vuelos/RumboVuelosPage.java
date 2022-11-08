@@ -42,10 +42,6 @@ public class RumboVuelosPage  extends SeleniumWrapper {
     By btnEraseOrigen = By.xpath("//div[@aria-label='Clear']");
     By btnPreviousMonth = By.xpath("//button[@aria-label='Previous month']");
     By btnNextMonth = By.xpath("//button[@aria-label='Next month']");
-    //div[@class='display-7133s2']//child::div[@class='display-j0vjy-AutocompleterBase-styled-AutocompleterBase-styled']
-    //locators fechas
-    // 28/11 = //*[@id="hub-csw-container"]//div[2]/div[2]/button[28]
-    // 1/12 = //*[@id="hub-csw-container"]//div[3]/div[2]/button[1]
 
     public void navigateToViewVuelos(){
         navigateTo(url);
@@ -100,14 +96,13 @@ public class RumboVuelosPage  extends SeleniumWrapper {
     }
 
     public void addChild(int cantidad, String rango){
-        //click(btnAddPassengers);
         click(btnAddChildList);
         List<WebElement> lista = findElements(listChildAges);
         for (int i = 0; i < lista.size() ; i++) {
             click(By.xpath("//li[normalize-space()='"+rango+"']"));
         }
     }
-    // //li[normalize-space()='Bebé, 0-11 meses']
+
     public void selectClassOption(String clase) {
         click(btnClass);
         List <WebElement> lista = findElements(listClassOptions);
@@ -182,7 +177,6 @@ public class RumboVuelosPage  extends SeleniumWrapper {
     }
 
     public boolean validateAlertNullInputMessage(){
-        //cuando haga el test deberia hacer algun tipo de refresh
         boolean message1 = validateMessage("Introduce ciudad o aeropuerto de origen", alertMessageNullOrigen);
         boolean message2 = validateMessage("Introduce ciudad o aeropuerto de destino", alertMessageNullDestino);
         return message1 && message2;

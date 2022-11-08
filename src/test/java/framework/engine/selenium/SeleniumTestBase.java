@@ -33,9 +33,14 @@ public class SeleniumTestBase {
         driver.manage().timeouts().implicitlyWait(Duration.ofMillis(1500));
     }
 
-   @AfterEach
+
+  /* @AfterEach
     void close(){
         driver.quit();
     }
+
+   */
+
+
 
 }

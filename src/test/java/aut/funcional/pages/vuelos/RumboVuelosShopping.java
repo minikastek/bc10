@@ -1,16 +1,12 @@
 package aut.funcional.pages.vuelos;
 
 import framework.engine.selenium.SeleniumWrapper;
-import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.*;
-import org.openqa.selenium.interactions.Actions;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.List;
 
-public class RumboVuelosShoping extends SeleniumWrapper {
-    public RumboVuelosShoping(WebDriver driver) {
+public class RumboVuelosShopping extends SeleniumWrapper {
+    public RumboVuelosShopping(WebDriver driver) {
         super(driver);
     }
     String alertMessagePrecios = "Los precios promocionales que se muestran incluyen un descuento en los gastos de gestión. Si se añade alguno de nuestros servicios adicionales o servicios suplementarios proporcionados por la aerolínea (por ejemplo, equipaje facturado), el precio final puede verse afectado. Los vuelos con la etiqueta \"Conexión garantizada\" no están incluidos en la promoción.";
