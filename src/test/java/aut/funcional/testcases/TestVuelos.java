@@ -3,15 +3,13 @@ package aut.funcional.testcases;
 import aut.funcional.pages.vuelos.RumboVuelosFDS;
 import aut.funcional.pages.vuelos.RumboVuelosPage;
 import aut.funcional.pages.vuelos.RumboVuelosRyanair;
-import aut.funcional.pages.vuelos.RumboVuelosShoping;
+import aut.funcional.pages.vuelos.RumboVuelosShopping;
 import framework.engine.selenium.DriverFactory;
 import framework.engine.selenium.SeleniumTestBase;
 import org.apache.commons.io.FileUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.*;
-import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.*;
 
 import java.io.File;
 import java.io.IOException;
@@ -21,7 +19,7 @@ public class TestVuelos extends SeleniumTestBase {
     RumboVuelosPage rumboVuelos;
     RumboVuelosFDS rumboFDS;
     RumboVuelosRyanair rumboVuelosRyanair;
-    RumboVuelosShoping rumboShopping;
+    RumboVuelosShopping rumboShopping;
     By fechaIdaLocator1 = By.xpath("//div[@class='monthContainer monthContainerFirst']//child::div[text()='12']");
     By fechaVueltaLocator1 = By.xpath("//div[@class='monthContainer monthContainerFirst']//child::div[text()='21']");
     By fechaIdaLocator2 = By.xpath("//*[@id='hub-csw-container']//div[2]/div[2]/button[26]");
@@ -31,7 +29,7 @@ public class TestVuelos extends SeleniumTestBase {
     @Test
     //TCV-MC-001 Busqueda de vuelos de la Aerolinea Ryanair
     void test1() throws InterruptedException, IOException {
-        rumboShopping = new RumboVuelosShoping(DriverFactory.getDriver());
+        rumboShopping = new RumboVuelosShopping(DriverFactory.getDriver());
         rumboVuelos = new RumboVuelosPage(DriverFactory.getDriver());
         rumboVuelosRyanair = new RumboVuelosRyanair(DriverFactory.getDriver());
         rumboVuelos.navigateToViewVuelos();
@@ -59,7 +57,7 @@ public class TestVuelos extends SeleniumTestBase {
     //TCV-MC-002
     @Test
     void test2() throws InterruptedException, IOException {
-       rumboShopping = new RumboVuelosShoping(DriverFactory.getDriver());
+       rumboShopping = new RumboVuelosShopping(DriverFactory.getDriver());
         rumboVuelos = new RumboVuelosPage(DriverFactory.getDriver());
         rumboVuelos.navigateToViewVuelos();
         rumboVuelos.deleteCookies();
@@ -84,7 +82,7 @@ public class TestVuelos extends SeleniumTestBase {
     //TCV-HC-001
     @Test
     void test3() throws InterruptedException {
-        rumboShopping = new RumboVuelosShoping(DriverFactory.getDriver());
+        rumboShopping = new RumboVuelosShopping(DriverFactory.getDriver());
         rumboVuelos = new RumboVuelosPage(DriverFactory.getDriver());
         rumboVuelos.navigateToViewVuelos();
         rumboVuelos.deleteCookies();
@@ -116,7 +114,7 @@ public class TestVuelos extends SeleniumTestBase {
         rumboShopping.selectBarFilter(By.xpath("//*[@id='filters-section--timerange__view119']/div/div[1]//div[3]//div[3]"));
         Thread.sleep(3000);
         //horario duracion de vuelo
-        rumboShopping.selectBarFilter(By.xpath("//*[@id='filters-section--timerange__view119']/div/div[1]/div/div/div[3]/div"));
+        rumboShopping.selectBarFilter(By.xpath("//*[@id='filters-section--timerange__view119']//div[3]//div[3]//div[2]"));
         Thread.sleep(3000);
         //click varias compañias
         rumboShopping.selectElement(By.xpath("//label[normalize-space()='Varias compañías']"));
@@ -129,6 +127,7 @@ public class TestVuelos extends SeleniumTestBase {
         Thread.sleep(3000);
         //select airport vuelta
         rumboShopping.selectElement(By.xpath("//label[normalize-space()='Bangkok Suvarnabhumi Internacional (BKK)']"));
+        Assertions.assertTrue(rumboShopping.validateBannerPlus());
     }
 
 
@@ -172,7 +171,7 @@ public class TestVuelos extends SeleniumTestBase {
     void test6() throws InterruptedException {
         rumboFDS = new RumboVuelosFDS(DriverFactory.getDriver());
         rumboVuelos = new RumboVuelosPage(DriverFactory.getDriver());
-        rumboShopping = new RumboVuelosShoping(DriverFactory.getDriver());
+        rumboShopping = new RumboVuelosShopping(DriverFactory.getDriver());
         rumboVuelos.navigateToViewVuelos();
         rumboVuelos.deleteCookies();
         //voy a vuelos baratos
@@ -193,7 +192,6 @@ public class TestVuelos extends SeleniumTestBase {
         //Ninguna ida
         rumboShopping.selectElement(By.xpath("//*[@id='filters-section--stops__view141']//div[2]//li[1]"));
         Thread.sleep(3000);
-        //driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(25));
         //Ninguna vuelta
         rumboShopping.selectElement(By.xpath("//*[@id='filters-section--stops__view141']//div[3]//li[1]"));
         Thread.sleep(3000);
@@ -222,7 +220,7 @@ public class TestVuelos extends SeleniumTestBase {
         rumboShopping.selectFlexible();
         Assertions.assertTrue(rumboShopping.validateAlmostFinishedProcess());
     }
-    //TCV-LC-003
+    //TCV-LC-004
     @Test
     void test7(){
         rumboVuelos = new RumboVuelosPage(DriverFactory.getDriver());
@@ -233,9 +231,9 @@ public class TestVuelos extends SeleniumTestBase {
         for (int i = 0; i < 12; i++) {
             rumboVuelos.click(By.xpath("//button[@aria-label='Next month']"));
         }
-        Assertions.assertFalse(rumboVuelos.validateDisableBtn(fechaVueltaLocator2));
+        Assertions.assertFalse(rumboVuelos.validateDisableBtn(By.xpath("//div[2]//section//div[2]/div[2]/div[6]/button")));
     }
-    //TCV-LC-004
+    //TCV-LC-003
     @Test
     void test8(){
         rumboVuelos = new RumboVuelosPage(DriverFactory.getDriver());
@@ -243,6 +241,7 @@ public class TestVuelos extends SeleniumTestBase {
         rumboVuelos.deleteCookies();
         rumboVuelos.selectOptionVuelo("Ida y vuelta");
         rumboVuelos.clickFechaIda();
-        Assertions.assertFalse(rumboVuelos.validateDisableBtn(fechaIdaLocator3));
+        Assertions.assertFalse(rumboVuelos.validateDisableBtn(By.xpath("//div[2]//section//div[2]/div[2]/div[7]/button")));
     }
+
 }
