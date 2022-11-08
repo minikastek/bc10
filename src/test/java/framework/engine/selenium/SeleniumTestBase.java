@@ -24,7 +24,6 @@ public class SeleniumTestBase {
 
     @BeforeEach
     void webDriverSetup(){
-        //cambie el "browser" por edge
         String browserName = properties.getProperty("browser");
         driverFactory = new DriverFactory();
         driver = driverFactory.inicializarDriver(browserName);

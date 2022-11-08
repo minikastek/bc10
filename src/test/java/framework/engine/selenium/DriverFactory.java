@@ -34,6 +34,13 @@ public class DriverFactory {
                 getDriver().manage().window().maximize();
                 getDriver().manage().timeouts().implicitlyWait(Duration.ofMillis(5000));
                 return getDriver();
+            case "chrome":
+                WebDriverManager.chromedriver().setup();
+                hiloLocal.set(new ChromeDriver());
+                getDriver().manage().deleteAllCookies();
+                getDriver().manage().window().maximize();
+                getDriver().manage().timeouts().implicitlyWait(Duration.ofMillis(5000));
+                return getDriver();
             default:
                 throw new RuntimeException("Navegador no configurado: " + browser);
         }
