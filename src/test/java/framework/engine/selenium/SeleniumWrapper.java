@@ -10,9 +10,9 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 import java.util.List;
 import java.util.Set;
-import javax.swing.*;
+
 import java.util.NoSuchElementException;
-import java.util.Set;
+
 
 public class SeleniumWrapper {
 
@@ -68,7 +68,7 @@ public class SeleniumWrapper {
 
     public void esperaImplicita(int time, By locator){
         Wait<WebDriver> fluentWait = new FluentWait<WebDriver>(driver)
-                .withTimeout(Duration.ofSeconds(time))
+                .withTimeout(Duration.ofMillis(time))
                 .pollingEvery(Duration.ofMillis(100))
                 .ignoring(NoSuchElementException.class);
         fluentWait.until(ExpectedConditions.elementToBeClickable(locator));
@@ -78,18 +78,7 @@ public class SeleniumWrapper {
         WebElement foo = new WebDriverWait(driver, Duration.ofSeconds(seconds))
                 .until(driver -> driver.findElement(locator));
     }
-    
-    public void handleTab(){
-        String mainTab = driver.getWindowHandle();
-        String nweTab = "";
-        Set<String> handles = driver.getWindowHandles();
-        for(String actual: handles){
-            if(!actual.equalsIgnoreCase(mainTab)){
-                driver.switchTo().window(actual);
-                nweTab = actual;
-            }
-        }
-    }
+
 
     public void moveTo(By locator){
         WebElement localizador = driver.findElement(locator);
@@ -134,7 +123,7 @@ public class SeleniumWrapper {
         return driver.getTitle();
     }
 
-    /*
+
     public void handleTab() throws InterruptedException {
         Thread.sleep(500);
         String mainTab = driver.getWindowHandle();
@@ -147,7 +136,7 @@ public class SeleniumWrapper {
                 nweTab = actual;
             }
         }
-    } */
+    }
 
     public void cambioFrame(String id){
         driver.switchTo().frame(id);
@@ -173,17 +162,11 @@ public class SeleniumWrapper {
             subDescuento = descuento.substring(0,3);
         }
         return Integer.parseInt(subDescuento);
-        //System.out.println(subDescuento);
+
     }
 
     public Integer numeroMayor(List<Integer> numeros){
-       /* int numeroMayor = 0;
-        for (int i = 0; i < numeros.size(); i++) {
-            if(numeros.get(i) > numeroMayor){
-                System.out.println(numeros.stream().max());
-                numeroMayor = numeros.indexOf(i);
-            }
-        }*/
+
         Integer numeroMayor = numeros.stream().max(Integer::compare).get();
         return numeroMayor;
     }

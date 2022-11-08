@@ -28,7 +28,7 @@ public class RumboVuelosRyanair extends SeleniumWrapper {
     By btnTuristaPremium = By.xpath("//div[@data-value='P']");
     By btnBusiness = By.xpath("//div[@data-value='C']");
     By btnPrimera = By.xpath("//div[@data-value='F']");
-    //List
+
 
 
 
