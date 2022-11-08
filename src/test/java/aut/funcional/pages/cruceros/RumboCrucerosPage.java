@@ -1,11 +1,10 @@
-package aut.funcional.pages.Cruceros;
+package aut.funcional.pages.cruceros;
 
 import framework.engine.selenium.SeleniumWrapper;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -88,14 +87,17 @@ public class RumboCrucerosPage extends SeleniumWrapper {
         click(cualquierDestinoSelector);
         esperaImplicita(3000, inputDestino);
         write(texto, inputDestino);
+        esperaImplicita(2000, selectorString);
         click(selectorString);
     }
 
     public void seleccionarInputPeriodo(){
+        esperaImplicita(2000, inputPeriodo);
         click(inputPeriodo);
     }
 
     public void seleccionarMesPeriodo(){
+        esperaImplicita(2000, diciembrePeriodo);
         click(diciembrePeriodo);
     }
 
@@ -125,14 +127,20 @@ public class RumboCrucerosPage extends SeleniumWrapper {
 
 
   public void seleccionarPuertoMiami(){
+        esperaImplicita(2000, puertoInput);
         click(puertoInput);
+        esperaImplicita(2000,inputTextPuerto);
         write("Miami", inputTextPuerto);
+        esperaImplicita(2000, checkMiami);
         click(checkMiami);
   }
   public void seleccionarEnero2023(){
       By inputPeriodo = By.xpath("//span[normalize-space()='diciembre 2022']");
+        esperaImplicita(2000,inputPeriodo);
         click(inputPeriodo);
+        esperaImplicita(2000,pickerAnoPeriodo );
         click(pickerAnoPeriodo);
+        esperaImplicita(2000, marzoPeriodo);
         click(marzoPeriodo);
   }
 
@@ -141,6 +149,7 @@ public class RumboCrucerosPage extends SeleniumWrapper {
   }
 
   public void selTresAdultos2NinosPasajeros(){
+        esperaImplicita(2000, inputPasajeros);
         click(inputPasajeros);
         click(moreAdulto);
         click(moreNino);
@@ -211,6 +220,7 @@ public class RumboCrucerosPage extends SeleniumWrapper {
         esperaImplicita(3000, btnPasajeros);
         click(btnPasajeros);
         By btnMenosPasajero = By.xpath("(//button[contains(text(),'-')])[1]");
+        esperaImplicita(2000, btnMenosPasajero);
         click(btnMenosPasajero);
     }
     public void reiniciarBusqueda(){
@@ -262,6 +272,7 @@ public class RumboCrucerosPage extends SeleniumWrapper {
         esperaImplicita(3000, inputPeriodo);
         click(inputPeriodo);
         By mesDiciembre = By.xpath("//span[@class='p-ripple p-element p-monthpicker-month ng-tns-c56-7 ng-star-inserted'][normalize-space()='dic']");
+        esperaImplicita(2000, mesDiciembre);
         click(mesDiciembre);
     }
 
@@ -270,12 +281,15 @@ public class RumboCrucerosPage extends SeleniumWrapper {
         esperaImplicita(5000, btnCualquierCompania);
         click(btnCualquierCompania);
         By inputCompania = By.xpath("//input[@role='textbox']");
+        esperaImplicita(2000, inputCompania);
         write("MSC Cruceros", inputCompania);
         By MSCCruceros = By.xpath("(//li[@aria-label='MSC Cruceros'])[1]");
+        esperaImplicita(3000, MSCCruceros);
         click(MSCCruceros);
         limpiarInput(inputCompania);
         write("Costa Crucero", inputCompania);
         By costaCruceroSelector = By.xpath("(//li[@aria-label='Costa Cruceros'])[1]");
+        esperaImplicita(2000, costaCruceroSelector);
         click(costaCruceroSelector);
     }
 

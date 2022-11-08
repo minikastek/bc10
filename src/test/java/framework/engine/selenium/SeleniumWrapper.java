@@ -5,6 +5,7 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Wait;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 import java.util.List;
@@ -64,14 +65,6 @@ public class SeleniumWrapper {
         e.click();
     }
 
-    public void esperaImplicita(int time, By locator){
-        Wait<WebDriver> fluentWait = new FluentWait<WebDriver>(driver)
-                .withTimeout(Duration.ofSeconds(time))
-                .pollingEvery(Duration.ofMillis(100))
-                .ignoring(NoSuchElementException.class);
-        fluentWait.until(ExpectedConditions.elementToBeClickable(locator));
-    }
-
     public void moveTo(By locator){
         WebElement localizador = driver.findElement(locator);
         new Actions(driver).moveToElement(localizador).perform();
@@ -117,13 +110,16 @@ public class SeleniumWrapper {
 
     public void esperaImplicita(int time, By locator){
         Wait<WebDriver> fluentWait = new FluentWait<WebDriver>(driver)
-                .withTimeout(Duration.ofSeconds(time))
+                .withTimeout(Duration.ofMillis(time))
                 .pollingEvery(Duration.ofMillis(100))
                 .ignoring(NoSuchElementException.class);
         fluentWait.until(ExpectedConditions.elementToBeClickable(locator));
     }
 
-    public void handleTab(){
+
+
+    public void handleTab() throws InterruptedException {
+        Thread.sleep(500);
         String mainTab = driver.getWindowHandle();
         String nweTab = "";
         Set<String> handles = driver.getWindowHandles();
