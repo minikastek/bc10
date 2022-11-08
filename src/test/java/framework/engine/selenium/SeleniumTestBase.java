@@ -24,11 +24,9 @@ public class SeleniumTestBase {
 
     @BeforeEach
     void webDriverSetup(){
-        //cambie el "browser" por edge
-        //String browserName = properties.getProperty("browser");
+        String browserName = properties.getProperty("browser");
         driverFactory = new DriverFactory();
-        //driver = driverFactory.inicializarDriver(browserName);
-        driver = driverFactory.createWebDriver();
+        driver = driverFactory.inicializarDriver(browserName);
         driver.manage().window().maximize();
         driver.manage().deleteAllCookies();
         driver.manage().timeouts().implicitlyWait(Duration.ofMillis(1500));
