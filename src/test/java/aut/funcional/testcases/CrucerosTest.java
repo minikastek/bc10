@@ -1,10 +1,11 @@
 package aut.funcional.testcases;
 
-import aut.funcional.pages.Cruceros.CruceroDetalle;
-import aut.funcional.pages.Cruceros.CruceroFormularioDetalle;
-import aut.funcional.pages.Cruceros.RumboCrucerosPage;
+import aut.funcional.pages.cruceros.CruceroDetalle;
+import aut.funcional.pages.cruceros.CruceroFormularioDetalle;
+import aut.funcional.pages.cruceros.RumboCrucerosPage;
 import framework.engine.selenium.DriverFactory;
 import framework.engine.selenium.SeleniumTestBase;
+import gherkin.lexer.Th;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -29,7 +30,7 @@ public class CrucerosTest extends SeleniumTestBase {
     }
 
     @Test
-    void TCCLC002(){
+    void TCCLC002() throws InterruptedException {
         rhp = new RumboCrucerosPage(DriverFactory.getDriver());
         rhp.navegarHome();
         rhp.aceptarCoockies();
@@ -51,27 +52,25 @@ public class CrucerosTest extends SeleniumTestBase {
         rhp.aceptarCoockies();
         rhp.navegarCruceros();
         rhp.seleccionarDestino("Caribe");
-        Thread.sleep(2000);
+        Thread.sleep(300);
         rhp.seleccionarInputPeriodo();
         rhp.seleccionarMesPeriodo();
-        Thread.sleep(2000);
+        Thread.sleep(300);
         rhp.seleccionarDuracion(2);
-        Thread.sleep(2000);
+        Thread.sleep(300);
         rhp.seleccionarPuertoMiami();
-        Thread.sleep(2000);
-        rhp.clickPrueba();
-        Thread.sleep(2000);
+        Thread.sleep(300);
         rhp.seleccionarEnero2023();
-        Thread.sleep(2000);
+        Thread.sleep(300);
         rhp.selTresAdultos2NinosPasajeros();
-        Thread.sleep(2000);
+        Thread.sleep(300);
         rhp.buscar();
         rhp.primerCrucero();
         rhp.handleTab();
         Integer primerValor = rcd.valorCrucero();
         rcd.cambiarCamarote();
-        rcd.solocitarPresupuesto();
         Integer segundoValor = rcd.valorCrucero();
+        rcd.solocitarPresupuesto();
         Assertions.assertTrue(rcd.primeroEsMayor(primerValor, segundoValor));
     }
 
@@ -83,19 +82,19 @@ public class CrucerosTest extends SeleniumTestBase {
         rhp.aceptarCoockies();
         rhp.navegarCruceros();
         rhp.seleccionarDestino("Mediterráneo");
-        Thread.sleep(3000);
+        Thread.sleep(300);
         rhp.seleccionarEnero20232();
-        Thread.sleep(3000);
+        Thread.sleep(300);
         rhp.seleccionarDuracion(2);
-        Thread.sleep(3000);
+        Thread.sleep(300);
         rhp.companiaCostaCrucero();
-        Thread.sleep(3000);
+        Thread.sleep(300);
         rhp.seleccionarPuertoBarcelona();
-        Thread.sleep(3000);
+        Thread.sleep(300);
         rhp.seleccionarUnPasajero();
-        Thread.sleep(3000);
+        Thread.sleep(300);
         rhp.reiniciarBusqueda();
-        Thread.sleep(3000);
+        Thread.sleep(300);
         List<String> valoresForm = rhp.obtenerValoresForm();
         List<String> valoresEsperados = rhp.valoresEsperadosForm();
         Assertions.assertEquals(valoresEsperados, valoresForm);
@@ -113,16 +112,23 @@ public class CrucerosTest extends SeleniumTestBase {
         rhp.buscar();
         rhp.primerCrucero();
         rhp.handleTab();
+        Thread.sleep(500);
         rcd.solocitarPresupuesto();
-        Thread.sleep(2000);
+        Thread.sleep(500);
         cfd.ingresarNombre("Nelson");
+        Thread.sleep(500);
         cfd.ingresarApellido("Tapia");
+        Thread.sleep(500);
         cfd.ingresarEmail("ntapiapinto@gmail.com");
+        Thread.sleep(500);
         cfd.ingresarComentario("Comentario de prueba");
+        Thread.sleep(500);
         cfd.checkConsentimiento();
-        Thread.sleep(5000);
+        Thread.sleep(1000);
         cfd.clickOpcionDos();
+        Thread.sleep(2000);
         cfd.seleccionarTransferencia();
+        Thread.sleep(300);
         String prueba = cfd.obtenerMensajeTransferencia();
         Assertions.assertEquals( "Transferencia Bancaria con un depósito de 227 €", prueba);
 
@@ -137,34 +143,34 @@ public class CrucerosTest extends SeleniumTestBase {
         rhp.aceptarCoockies();
         rhp.navegarCruceros();
         rhp.navegarOfertas();
-        Thread.sleep(1000);
         rhp.seleccionarDiciembre();
-        Thread.sleep(1000);
+        Thread.sleep(200);
         rhp.seleccionarUnPasajero();
-        Thread.sleep(1000);
+        Thread.sleep(200);
         rhp.companiaMSCCruceros();
+        Thread.sleep(500);
         rhp.buscar();
-        Thread.sleep(1000);
+        Thread.sleep(500);
         rhp.sortRating();
-        Thread.sleep(1000);
+        Thread.sleep(800);
         rhp.primerCrucero();
-        Thread.sleep(1000);
+        Thread.sleep(800);
         rhp.handleTab();
         Thread.sleep(1000);
         rcd.cambiarFebrero2023();
         Thread.sleep(1000);
         rcd.ultimafecha();
-        Thread.sleep(1000);
+        Thread.sleep(800);
         rcd.primerCamarote();
-        Thread.sleep(1000);
+        Thread.sleep(800);
         rcd.solocitarPresupuesto();
-        Thread.sleep(1000);
+        Thread.sleep(800);
         Integer primerValor = cfd.obtenerValorDetalle();
-        Thread.sleep(1000);
+        Thread.sleep(800);
         cfd.seleccionarRumboVip();
-        Thread.sleep(1000);
+        Thread.sleep(800);
         Integer segundoValor = cfd.obtenerValorDetalle();
-        Thread.sleep(1000);
+        Thread.sleep(300);
         Assertions.assertTrue(cfd.evaluarMayor(primerValor, segundoValor));
 
     }

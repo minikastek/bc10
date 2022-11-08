@@ -24,7 +24,6 @@ public class SeleniumTestBase {
 
     @BeforeEach
     void webDriverSetup(){
-        //cambie el "browser" por edge
         String browserName = properties.getProperty("browser");
         driverFactory = new DriverFactory();
         driver = driverFactory.inicializarDriver(browserName);
@@ -33,11 +32,10 @@ public class SeleniumTestBase {
         driver.manage().timeouts().implicitlyWait(Duration.ofMillis(1500));
     }
 
-   /* @AfterEach
+   @AfterEach
     void close(){
         driver.quit();
     }
 
-    */
 
 }

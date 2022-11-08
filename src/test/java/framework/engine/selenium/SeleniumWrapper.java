@@ -78,6 +78,7 @@ public class SeleniumWrapper {
         WebElement foo = new WebDriverWait(driver, Duration.ofSeconds(seconds))
                 .until(driver -> driver.findElement(locator));
     }
+    
     public void handleTab(){
         String mainTab = driver.getWindowHandle();
         String nweTab = "";
@@ -89,6 +90,7 @@ public class SeleniumWrapper {
             }
         }
     }
+
     public void moveTo(By locator){
         WebElement localizador = driver.findElement(locator);
         new Actions(driver).moveToElement(localizador).perform();
@@ -132,15 +134,9 @@ public class SeleniumWrapper {
         return driver.getTitle();
     }
 
-    public void esperaImplicita(int time, By locator){
-        Wait<WebDriver> fluentWait = new FluentWait<WebDriver>(driver)
-                .withTimeout(Duration.ofSeconds(time))
-                .pollingEvery(Duration.ofMillis(100))
-                .ignoring(NoSuchElementException.class);
-        fluentWait.until(ExpectedConditions.elementToBeClickable(locator));
-    }
-
-    public void handleTab(){
+    /*
+    public void handleTab() throws InterruptedException {
+        Thread.sleep(500);
         String mainTab = driver.getWindowHandle();
         String nweTab = "";
         Set<String> handles = driver.getWindowHandles();
@@ -151,7 +147,7 @@ public class SeleniumWrapper {
                 nweTab = actual;
             }
         }
-    }
+    } */
 
     public void cambioFrame(String id){
         driver.switchTo().frame(id);

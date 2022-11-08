@@ -1,9 +1,8 @@
-package aut.funcional.pages.Cruceros;
+package aut.funcional.pages.cruceros;
 
 import framework.engine.selenium.SeleniumWrapper;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.Select;
 
 public class CruceroFormularioDetalle extends SeleniumWrapper {
     public CruceroFormularioDetalle(WebDriver driver) {
@@ -65,12 +64,12 @@ public class CruceroFormularioDetalle extends SeleniumWrapper {
     }
 
     public void clickOpcionDos(){
-        esperaImplicita(2000, opcionDos);
+        esperaImplicita(3000, opcionDos);
         click(opcionDos);
     }
 
     public void seleccionarTransferencia(){
-        esperaImplicita(2000, transferenciaBancaria);
+        esperaImplicita(5000, transferenciaBancaria);
         click(transferenciaBancaria);
     }
 
@@ -81,6 +80,7 @@ public class CruceroFormularioDetalle extends SeleniumWrapper {
 
     public String obtenerMensajeTransferencia(){
         By prueba = By.xpath("//header[@class='crs_booking_info__header ng-star-inserted']/h5");
+        esperaImplicita(1000, prueba);
         return getText(prueba);
     }
 

@@ -1,6 +1,7 @@
-package aut.funcional.pages.Cruceros;
+package aut.funcional.pages.cruceros;
 
 import framework.engine.selenium.SeleniumWrapper;
+import gherkin.lexer.Th;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
@@ -11,20 +12,22 @@ public class CruceroDetalle extends SeleniumWrapper {
     //TCCHC001
     By btnSolicitarPresupuesto = By.xpath("//button[@class='crs-btn crs-btn--cta crs-btn--contain crs-btn--block ng-star-inserted']");
 
-    public void solocitarPresupuesto(){
+    public void solocitarPresupuesto() {
         esperaImplicita(3000, btnSolicitarPresupuesto);
         click(btnSolicitarPresupuesto);
     }
 
     //TCCHC002
     public void cambiarFebrero2023() throws InterruptedException {
-        Thread.sleep(2000);
         By dropPeriodo = By.xpath("//div[@class='p-dropdown-trigger']");
         esperaImplicita(2000, dropPeriodo);
         click(dropPeriodo);
-        By siguienteAno = By.xpath("/html/body/div[5]/div/div/div/p-calendar/span/div/div[1]/div/div/button[2]");
+
+        By siguienteAno = By.xpath("//button[@class='p-ripple p-element p-datepicker-next p-link ng-tns-c57-4']");
+        esperaImplicita(5000, siguienteAno);
         click(siguienteAno);
-        By febrero = By.xpath("/html/body/div[5]/div/div/div/p-calendar/span/div/div[2]/span[4]");
+        By febrero = By.xpath("//span[@class='p-ripple p-element p-monthpicker-month ng-tns-c57-4 ng-star-inserted'][normalize-space()='feb']");
+        esperaImplicita(5000,febrero);
         click(febrero);
     }
 
@@ -49,6 +52,7 @@ public class CruceroDetalle extends SeleniumWrapper {
     }
     public Integer valorCrucero(){
         By valor = By.xpath("//div[@class='crs-full-price crs-full-price--default crs-full-price--small']//span[@class='crs-price__value']");
+        esperaImplicita(2000, valor);
         String numero = getText(valor);
         Integer numeroInt = cortarDescuento(numero);
         return numeroInt;
