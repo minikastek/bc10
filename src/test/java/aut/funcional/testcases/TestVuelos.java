@@ -22,10 +22,7 @@ public class TestVuelos extends SeleniumTestBase {
     RumboVuelosShopping rumboShopping;
     By fechaIdaLocator1 = By.xpath("//div[@class='monthContainer monthContainerFirst']//child::div[text()='12']");
     By fechaVueltaLocator1 = By.xpath("//div[@class='monthContainer monthContainerFirst']//child::div[text()='21']");
-    By fechaIdaLocator2 = By.xpath("//*[@id='hub-csw-container']//div[2]/div[2]/button[26]");
-    By fechaIdaLocator3 = By.xpath("//*[@id='hub-csw-container']/div[2]//div[2]/div[2]/div[2]/button");
-    By fechaVueltaLocator2 = By.xpath("//*[@id='hub-csw-container']//section//div[2]/div[5]/button");
-    By fechaVueltaLocator3 = By.xpath("//*[@id='hub-csw-container']//section//div/div[3]/div[2]/button[1]");
+    By fechaVueltaLocator2 = By.xpath("//*[@id='hub-csw-container']//section//div/div[3]/div[2]/button[1]");
     @Test
     //TCV-MC-001 Busqueda de vuelos de la Aerolinea Ryanair
     void test1() throws InterruptedException, IOException {
@@ -36,7 +33,7 @@ public class TestVuelos extends SeleniumTestBase {
         rumboVuelos.deleteCookies();
         rumboVuelos.navigateToAirlineView("Ryanair");
         rumboVuelos.handleTab();
-        File scrFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+        File scrFile = ((TakesScreenshot) DriverFactory.getDriver()).getScreenshotAs(OutputType.FILE);
         FileUtils.copyFile(scrFile, new File("./imageTest1AVuelos.png"));
         rumboVuelosRyanair.writeOnOriginRyanair();
         rumboVuelosRyanair.writeOnDestinationRyanair();
@@ -48,9 +45,9 @@ public class TestVuelos extends SeleniumTestBase {
         rumboVuelosRyanair.addPassengers("Niños", 1);
         rumboVuelosRyanair.selectClassOption("Business");
         rumboVuelosRyanair.searchWithSearchBtn();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
+        DriverFactory.getDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
         Assertions.assertTrue(rumboShopping.validateViewShopping());
-        File scrFile2 = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+        File scrFile2 = ((TakesScreenshot) DriverFactory.getDriver()).getScreenshotAs(OutputType.FILE);
         FileUtils.copyFile(scrFile2, new File("./imageTest1BVuelos.png"));
     }
 
@@ -67,15 +64,15 @@ public class TestVuelos extends SeleniumTestBase {
         rumboVuelos.clickFechaIda();
         rumboVuelos.selectFechaIda(By.xpath("//*[@id='hub-csw-container']//section//div[2]/div[2]/button[22]"));
         rumboVuelos.clickFechaVuelta();
-        rumboVuelos.selectFechaVuelta(fechaVueltaLocator3);
+        rumboVuelos.selectFechaVuelta(fechaVueltaLocator2);
         rumboVuelos.addAdult(1);
         rumboVuelos.addChild(1, "Bebé, 0-11 meses");
         rumboVuelos.addChild(1, "3 años");
         rumboVuelos.addChild(1, "10 años");
         rumboVuelos.selectClassOption("Turista Premium");
         rumboVuelos.clickBtnBuscar();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
-        File scrFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+        DriverFactory.getDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
+        File scrFile = ((TakesScreenshot) DriverFactory.getDriver()).getScreenshotAs(OutputType.FILE);
         FileUtils.copyFile(scrFile, new File("./imageTest2Vuelos.png"));
         Assertions.assertTrue(rumboShopping.validateBannerPlus());
     }
@@ -142,7 +139,7 @@ public class TestVuelos extends SeleniumTestBase {
         rumboVuelos.writeOnDestination("Madrid");
         rumboVuelos.clickBtnBuscar();
         Assertions.assertTrue(rumboVuelos.validateAlertSameValueInputMessage());
-        File scrFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+        File scrFile = ((TakesScreenshot) DriverFactory.getDriver()).getScreenshotAs(OutputType.FILE);
         FileUtils.copyFile(scrFile, new File("./imageTest4Vuelos.png"));
     }
     //TCV-LC-002
@@ -163,7 +160,7 @@ public class TestVuelos extends SeleniumTestBase {
         rumboVuelos.selectClassOption("Business");
         rumboVuelos.clickBtnBuscar();
         Assertions.assertTrue(rumboVuelos.validateAlertNullInputMessage());
-        File scrFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+        File scrFile = ((TakesScreenshot) DriverFactory.getDriver()).getScreenshotAs(OutputType.FILE);
         FileUtils.copyFile(scrFile, new File("./imageTest5Vuelos.png"));
     }
     //TCV-HC-002
@@ -179,14 +176,14 @@ public class TestVuelos extends SeleniumTestBase {
         //voy a vuelos fin de semana
         rumboVuelos.navigateToViewByClick("Vuelos de fin de semana");
         rumboFDS.handleTab();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        DriverFactory.getDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         //me muevo hacia abajo para cargar
         rumboFDS.gotToSubTitle("Salidas desde Madrid");
         rumboFDS.gotToSubTitle("Salidas desde Barcelona o Girona");
         //eligo ibiza en subtitulo 2
         rumboFDS.clickOnElementOnSubtitle2("Ibiza");
         rumboFDS.handleTab();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        DriverFactory.getDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         //Me muevo a la seccion escalas
         rumboShopping.moveTo(By.xpath("//div[starts-with(@id,'filters-section--timerange')]"));
         //Ninguna ida

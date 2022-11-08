@@ -13,8 +13,8 @@ import java.util.Properties;
 public class SeleniumTestBase {
 
     private DriverFactory driverFactory;
-    //cambie el driver a public
-    public WebDriver driver;
+
+    private WebDriver driver;
     static Properties properties;
 
     @BeforeAll
@@ -33,12 +33,11 @@ public class SeleniumTestBase {
     }
 
 
-  /* @AfterEach
+   @AfterEach
     void close(){
         driver.quit();
     }
 
-   */
 
 
 

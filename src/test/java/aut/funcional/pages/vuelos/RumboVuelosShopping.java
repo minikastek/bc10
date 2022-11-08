@@ -14,19 +14,19 @@ public class RumboVuelosShopping extends SeleniumWrapper {
     By bannerPlus = By.xpath("//div[@class='PlusBanner__MembershipBannerContainer-cncr__sc-1mufavd-0 jQWmQE']");
     By messagePreciosAlert = By.xpath("//div[@class='js-message message alert alert--message alert-unboxed']");
     By btnCleanFilters = By.xpath("//button[normalize-space()='Limpiar filtros']");
-    //By listCompaniesOptions = By.xpath("//div[@class='providers-filter-view__top-providers']//child::ul[@class='filters-group filters-group--condensed']");
+
     By btnVerDetalle = By.xpath("//button[normalize-space()='Detalles del vuelo']");
     By btnFlexible = By.xpath("//button[normalize-space()='Elegir Flexible']");
     By messageAlmostFinished = By.xpath("//div[normalize-space()='Ya casi has terminado: introduce los datos de los pasajeros']");
 public void selectBarFilter(By locator){
-        //esperaImplicita(3000, locator);
+
         moveTo(locator);
         clickElementonTheMiddle(locator);
 
 }
 
 public void selectElement(By locator){
-    //esperaImplicita(3000, locator);
+
     moveTo(locator);
     click(locator);
 
