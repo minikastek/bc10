@@ -1,11 +1,8 @@
-package aut.funcional.pages.vuelos;
+package aut.funcional.Equipo3.pages.vuelos;
 
 import framework.engine.selenium.SeleniumWrapper;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-
-import java.util.List;
 
 public class RumboVuelosRyanair extends SeleniumWrapper {
     public RumboVuelosRyanair(WebDriver driver) {

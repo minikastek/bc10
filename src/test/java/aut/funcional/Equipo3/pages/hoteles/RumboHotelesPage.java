@@ -1,11 +1,8 @@
-package aut.funcional.pages.hoteles;
+package aut.funcional.Equipo3.pages.hoteles;
 
 import framework.engine.selenium.SeleniumWrapper;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-
-import javax.print.attribute.standard.Media;
 
 public class RumboHotelesPage<ElementLocation> extends SeleniumWrapper {
     public RumboHotelesPage(WebDriver driver) {

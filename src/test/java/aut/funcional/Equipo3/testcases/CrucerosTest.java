@@ -1,11 +1,10 @@
-package aut.funcional.testcases;
+package aut.funcional.Equipo3.testcases;
 
-import aut.funcional.pages.cruceros.CruceroDetalle;
-import aut.funcional.pages.cruceros.CruceroFormularioDetalle;
-import aut.funcional.pages.cruceros.RumboCrucerosPage;
+import aut.funcional.Equipo3.pages.cruceros.CruceroDetalle;
+import aut.funcional.Equipo3.pages.cruceros.CruceroFormularioDetalle;
+import aut.funcional.Equipo3.pages.cruceros.RumboCrucerosPage;
 import framework.engine.selenium.DriverFactory;
 import framework.engine.selenium.SeleniumTestBase;
-import gherkin.lexer.Th;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

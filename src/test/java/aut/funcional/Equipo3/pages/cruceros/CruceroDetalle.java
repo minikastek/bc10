@@ -1,7 +1,6 @@
-package aut.funcional.pages.cruceros;
+package aut.funcional.Equipo3.pages.cruceros;
 
 import framework.engine.selenium.SeleniumWrapper;
-import gherkin.lexer.Th;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 

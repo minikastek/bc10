@@ -1,4 +1,4 @@
-package aut.funcional.pages.vuelos;
+package aut.funcional.Equipo3.pages.vuelos;
 
 import framework.engine.selenium.SeleniumWrapper;
 import org.openqa.selenium.*;

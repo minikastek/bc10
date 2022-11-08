@@ -1,6 +1,6 @@
-package aut.funcional.testcases;
+package aut.funcional.Equipo3.testcases;
 
-import aut.funcional.pages.hoteles.RumboHotelesPage;
+import aut.funcional.Equipo3.pages.hoteles.RumboHotelesPage;
 import framework.engine.selenium.DriverFactory;
 import framework.engine.selenium.SeleniumTestBase;
 import org.junit.jupiter.api.Assertions;

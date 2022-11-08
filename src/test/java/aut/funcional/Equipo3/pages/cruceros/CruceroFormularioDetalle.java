@@ -1,4 +1,4 @@
-package aut.funcional.pages.cruceros;
+package aut.funcional.Equipo3.pages.cruceros;
 
 import framework.engine.selenium.SeleniumWrapper;
 import org.openqa.selenium.By;

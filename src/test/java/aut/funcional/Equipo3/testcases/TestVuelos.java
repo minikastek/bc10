@@ -1,9 +1,9 @@
-package aut.funcional.testcases;
+package aut.funcional.Equipo3.testcases;
 
-import aut.funcional.pages.vuelos.RumboVuelosFDS;
-import aut.funcional.pages.vuelos.RumboVuelosPage;
-import aut.funcional.pages.vuelos.RumboVuelosRyanair;
-import aut.funcional.pages.vuelos.RumboVuelosShopping;
+import aut.funcional.Equipo3.pages.vuelos.RumboVuelosFDS;
+import aut.funcional.Equipo3.pages.vuelos.RumboVuelosPage;
+import aut.funcional.Equipo3.pages.vuelos.RumboVuelosRyanair;
+import aut.funcional.Equipo3.pages.vuelos.RumboVuelosShopping;
 import framework.engine.selenium.DriverFactory;
 import framework.engine.selenium.SeleniumTestBase;
 import org.apache.commons.io.FileUtils;
